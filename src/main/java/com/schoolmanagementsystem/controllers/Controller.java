@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,9 +39,6 @@ public abstract class Controller {
     protected Button notice;
 
     @FXML
-    protected MenuButton other;
-
-    @FXML
     protected Button profile;
 
     @FXML
@@ -56,7 +54,10 @@ public abstract class Controller {
     protected VBox vbox;
 
     @FXML
-    protected Button allUsers;
+    protected ImageView icon;
+
+    @FXML
+    protected Button club;
 
     protected Stage stage;
 
@@ -221,6 +222,14 @@ public abstract class Controller {
 
             controller.login.setText("Log out");
 //            controller.vbox.setStyle("-fx-background-color:  #720D05;");
+            VBox.setMargin(controller.home, new Insets(10, 25, 10, 61));
+            VBox.setMargin(controller.profile, new Insets(10, 25, 10, 61));
+            VBox.setMargin(controller.login, new Insets(10, 25, 10, 61));
+            VBox.setMargin(controller.notice, new Insets(10, 25, 10, 61));
+            VBox.setMargin(controller.club, new Insets(10, 25, 10, 61));
+            VBox.setMargin(controller.result, new Insets(10, 25, 10, 61));
+            VBox.setMargin(controller.routine, new Insets(10, 25, 10, 61));
+            VBox.setMargin(controller.icon, new Insets(29, 25, 15, 71));
         }
 
         if (Objects.equals(loginController.getLoggedInPerson(), "Staff")) {
@@ -235,6 +244,12 @@ public abstract class Controller {
 
             controller.login.setText("Log out");
 //            controller.vbox.setStyle("-fx-background-color:  #044C05;");
+            VBox.setMargin(controller.home, new Insets(16, 25, 16, 61));
+            VBox.setMargin(controller.profile, new Insets(16, 25, 16, 61));
+            VBox.setMargin(controller.login, new Insets(16, 25, 16, 61));
+            VBox.setMargin(controller.notice, new Insets(16, 25, 16, 61));
+            VBox.setMargin(controller.club, new Insets(16, 25, 16, 61));
+            VBox.setMargin(controller.icon, new Insets(55, 25, 22, 71));
         }
 
         if (Objects.equals(loginController.getLoggedInPerson(), "Admin")) {

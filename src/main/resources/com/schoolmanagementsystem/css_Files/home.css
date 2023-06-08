@@ -15,9 +15,9 @@
   -fx-background-color: #fdc830;
   -fx-effect: dropshadow(three-pass-box, #006400, 10, 0.5, 0, 0);
 }
-.button:focused {
+/*.button:focused {
   -fx-background-color: #ff4b2b;
-}
+}*/
 
 .menu-button {
   -fx-background-color: linear-gradient(to bottom, #ff4b2b, #f37335, #fdc830);
@@ -34,9 +34,9 @@
   -fx-background-color: #fdc830;
   -fx-effect: dropshadow(three-pass-box, #006400, 10, 0.5, 0, 0);
 }
-.menu-button:focused {
+/*.menu-button:focused {
   -fx-background-color: #ff4b2b;
-}
+}*/
 
 .menu-button .arrow {
   -fx-background-color: #baaaaa;

@@ -22,6 +22,14 @@ public class ClubCRUD {
         statement.setInt(1, Integer.parseInt(ID));
         statement.setString(2, clubName);
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void addOrUpdateClub(Club club) throws SQLException {
@@ -29,7 +37,7 @@ public class ClubCRUD {
         Connection con = db.getCon();
 
         String query;
-        PreparedStatement statement;
+        PreparedStatement statement = null;
 
         if (ClubController.isAddClubFlag()) {
             query = "INSERT INTO club (clubName) VALUES (?)";
@@ -73,6 +81,15 @@ public class ClubCRUD {
             statement.executeUpdate();
         }
 
+        try{
+            if(statement != null) {
+                statement.close();
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void deleteClub(String str) throws SQLException {
@@ -101,6 +118,16 @@ public class ClubCRUD {
 
         // Reset the auto-increment value
         stmt.executeUpdate("ALTER TABLE club AUTO_INCREMENT = " + resetId);
+
+        try{
+            rs.close();
+            delStatement.close();
+            alterStatement.close();
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void addFund(String fund) throws SQLException {
@@ -123,6 +150,15 @@ public class ClubCRUD {
         statement.setString(1, String.valueOf(currentFund));
         statement.setInt(2, ClubController.getSelectedClub() + 1);
         statement.executeUpdate();
+
+        try{
+            r.close();
+            st.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean spendFund(String fund) throws SQLException {
@@ -141,6 +177,13 @@ public class ClubCRUD {
         }
         int deductedFund = Integer.parseInt(fund);
         if (deductedFund > currentFund) {
+            try{
+                r.close();
+                st.close();
+                con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return false;
         }
         currentFund -= Integer.parseInt(fund);
@@ -149,6 +192,16 @@ public class ClubCRUD {
         statement.setString(1, String.valueOf(currentFund));
         statement.setInt(2, ClubController.getSelectedClub() + 1);
         statement.executeUpdate();
+
+        try{
+            r.close();
+            st.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 
@@ -162,6 +215,13 @@ public class ClubCRUD {
         ResultSet r = st.executeQuery();
 
         if (!r.next()) {
+            try{
+                r.close();
+                st.close();
+                con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return "This id doesn't exist";
         }
 
@@ -169,6 +229,13 @@ public class ClubCRUD {
         ArrayList<Pair<String, Integer>> ecPanel = club.ecPanel();
         for (Pair<String, Integer> stringIntegerPair : ecPanel) {
             if (stringIntegerPair.getValue() == id) {
+                try{
+                    r.close();
+                    st.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 return "This member is in ec panel";
             }
         }
@@ -189,6 +256,15 @@ public class ClubCRUD {
 
         if (r.next()) {
             if (r.getBoolean(clubName)) {
+                try{
+                    r.close();
+                    resultSet.close();
+                    st.close();
+                    statement.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 return "This is already a member";
             } else {
                 String q = "UPDATE clubMembers SET " + clubName + " = ? WHERE studentID = ?";
@@ -196,6 +272,18 @@ public class ClubCRUD {
                 stat.setInt(2, id);
                 stat.setBoolean(1, true);
                 stat.executeUpdate();
+
+                try{
+                    r.close();
+                    resultSet.close();
+                    st.close();
+                    statement.close();
+                    stat.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 return "Member added successfully";
             }
         }
@@ -205,6 +293,18 @@ public class ClubCRUD {
         stat.setInt(1, id);
         stat.setBoolean(2, true);
         stat.executeUpdate();
+
+        try{
+            r.close();
+            resultSet.close();
+            st.close();
+            statement.close();
+            stat.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "Member added successfully";
     }
 
@@ -218,6 +318,14 @@ public class ClubCRUD {
         ResultSet r = st.executeQuery();
 
         if (!r.next()) {
+            try{
+                r.close();
+                st.close();
+                con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             return "This id doesn't exist";
         }
 
@@ -225,6 +333,14 @@ public class ClubCRUD {
         ArrayList<Pair<String, Integer>> ecPanel = club.ecPanel();
         for (Pair<String, Integer> stringIntegerPair : ecPanel) {
             if (stringIntegerPair.getValue() == id) {
+                try{
+                    r.close();
+                    st.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 return "This member is in ec panel";
             }
         }
@@ -245,6 +361,16 @@ public class ClubCRUD {
 
         if (r.next()) {
             if (!r.getBoolean(clubName)) {
+                try{
+                    r.close();
+                    resultSet.close();
+                    st.close();
+                    statement.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 return "This is not a member";
             } else {
                 String q = "UPDATE clubMembers SET " + clubName + " = ? WHERE studentID = ?";
@@ -252,8 +378,30 @@ public class ClubCRUD {
                 stat.setInt(2, id);
                 stat.setBoolean(1, false);
                 stat.executeUpdate();
+
+                try{
+                    r.close();
+                    resultSet.close();
+                    st.close();
+                    statement.close();
+                    stat.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 return "Member deleted successfully";
             }
+        }
+
+        try{
+            r.close();
+            resultSet.close();
+            st.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return "This is not a member";

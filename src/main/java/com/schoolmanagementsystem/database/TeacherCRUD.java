@@ -45,6 +45,13 @@ public class TeacherCRUD {
         statement.setBinaryStream(13, fis, (int) file.length());
 
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateTeacher(Teacher emp, String imgPath) throws SQLException, FileNotFoundException {
@@ -88,6 +95,13 @@ public class TeacherCRUD {
         }
 
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteTeacher(int id) throws SQLException {
@@ -100,5 +114,12 @@ public class TeacherCRUD {
 
         statement.setInt(1, id);
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

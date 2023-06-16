@@ -21,35 +21,4 @@ public class NinetoTen extends SixtoEight {
         this.history = history;
     }
 
-    public double getHistory() {
-        return history;
-    }
-
-    public void setHistory(double history) {
-        this.history = history;
-    }
-
-    public double getLogic() {
-        return logic;
-    }
-
-    public void setLogic(double logic) {
-        this.logic = logic;
-    }
-
-    public double getEconomics() {
-        return economics;
-    }
-
-    public void setEconomics(double economics) {
-        this.economics = economics;
-    }
-
-    public double getBusiness() {
-        return business;
-    }
-
-    public void setBusiness(double business) {
-        this.business = business;
-    }
 }

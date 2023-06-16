@@ -35,6 +35,13 @@ public class LoginCRUD {
         statement.setString(1, emp.getPass());
 
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteLoginInfo(int id) throws SQLException {
@@ -47,5 +54,12 @@ public class LoginCRUD {
 
         statement.setInt(1, id);
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -106,6 +106,14 @@ public class NoticeController extends Controller implements Initializable {
 
         controller.back.setVisible(NoticeController.currentNotice != 1);
         controller.next.setVisible(NoticeController.currentNotice != NoticeController.lastNotice);
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -194,6 +202,14 @@ public class NoticeController extends Controller implements Initializable {
 
         NoticeController.updateFlag = true;
         NoticeController.cancelFlag = true;
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

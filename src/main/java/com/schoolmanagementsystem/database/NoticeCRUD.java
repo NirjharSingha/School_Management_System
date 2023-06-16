@@ -29,6 +29,13 @@ public class NoticeCRUD {
         statement.setDate(3, issueDate);
 
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateNotice(Notice notice) throws SQLException {
@@ -47,6 +54,13 @@ public class NoticeCRUD {
         statement.setInt(3, NoticeController.getCurrentNotice());
 
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteNotice() throws SQLException {
@@ -72,5 +86,14 @@ public class NoticeCRUD {
 
         // Reset the auto-increment value
         stmt.executeUpdate("ALTER TABLE notice AUTO_INCREMENT = " + resetId);
+
+        try{
+            rs.close();
+            delStatement.close();
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

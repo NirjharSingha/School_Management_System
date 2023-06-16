@@ -10,6 +10,18 @@ public class Salary {
     private int noOfChildren;
     private LocalDate date;
 
+    public Salary(int baseSalary, int rentPercentage, int medicalAllowance, int noOfChildren, LocalDate date) {
+        this.baseSalary = baseSalary;
+        this.rentPercentage = rentPercentage;
+        this.medicalAllowance = medicalAllowance;
+        this.noOfChildren = noOfChildren;
+        this.date = date;
+    }
+
+    public Salary() {
+
+    }
+
     public int getBaseSalary() {
         return baseSalary;
     }
@@ -30,15 +42,4 @@ public class Salary {
         return date;
     }
 
-    public Salary(int baseSalary, int rentPercentage, int medicalAllowance, int noOfChildren, LocalDate date) {
-        this.baseSalary = baseSalary;
-        this.rentPercentage = rentPercentage;
-        this.medicalAllowance = medicalAllowance;
-        this.noOfChildren = noOfChildren;
-        this.date = date;
-    }
-
-    public Salary() {
-
-    }
 }

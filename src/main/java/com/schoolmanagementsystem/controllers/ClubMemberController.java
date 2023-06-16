@@ -122,6 +122,10 @@ public class ClubMemberController extends Controller implements Initializable {
 
     private static int currentIndex;
 
+    public static void setCurrentIndex(int currentIndex) {
+        ClubMemberController.currentIndex = currentIndex;
+    }
+
     @FXML
     void handleCross(ActionEvent event) throws SQLException, IOException {
         ClubController clubController = new ClubController();
@@ -138,10 +142,6 @@ public class ClubMemberController extends Controller implements Initializable {
     void handlePrevious(ActionEvent event) throws SQLException, IOException {
         ClubMemberController.currentIndex -= 15;
         handleClubMemberPage(event);
-    }
-
-    public static void setCurrentIndex(int currentIndex) {
-        ClubMemberController.currentIndex = currentIndex;
     }
 
     public void handleClubMemberPage(Event event) throws IOException, SQLException {
@@ -219,6 +219,14 @@ public class ClubMemberController extends Controller implements Initializable {
         }
         if (ClubMemberController.currentIndex + 15 >= allMember.size()) {
             controller.next.setVisible(false);
+        }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

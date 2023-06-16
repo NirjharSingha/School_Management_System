@@ -19,27 +19,4 @@ public class SixtoEight extends PrimarySubject {
         this.social = social;
     }
 
-    public double getWellbeing() {
-        return wellbeing;
-    }
-
-    public void setWellbeing(double wellbeing) {
-        this.wellbeing = wellbeing;
-    }
-
-    public double getCrafts() {
-        return crafts;
-    }
-
-    public void setCrafts(double crafts) {
-        this.crafts = crafts;
-    }
-
-    public double getSocial() {
-        return social;
-    }
-
-    public void setSocial(double social) {
-        this.social = social;
-    }
 }

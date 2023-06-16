@@ -58,6 +58,14 @@ public class ResultCRUD {
                 statement.executeUpdate();
             }
         }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void resultAlgoCrud(int halfYearlyWeight, int yearFinalWeight, String priority) throws SQLException {
@@ -86,5 +94,13 @@ public class ResultCRUD {
         statement.setString(3, priority);
         statement.setInt(4, 1);
         statement.executeUpdate();
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

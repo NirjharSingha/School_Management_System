@@ -134,6 +134,14 @@ public class TeacherProfileController extends Controller {
             controller.profilePic.setImage(image);
 
         }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

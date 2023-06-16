@@ -131,6 +131,15 @@ public class StaffRegistrationController extends Controller implements Initializ
                     if (!r.next()) {
                         break;
                     }
+
+                    try{
+                        r.close();
+                        statement.close();
+                        con.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             } else {
                 id = Controller.requiredID;

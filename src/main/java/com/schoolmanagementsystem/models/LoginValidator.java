@@ -27,18 +27,45 @@ public class LoginValidator {
         ResultSet r2 = statement2.executeQuery();
 
         if (!r1.next()) {
-            // login.getLoggable().setText("Invalid Id. Register first");
+            try{
+                r1.close();
+                r2.close();
+                statement1.close();
+                statement2.close();
+                con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             return 0;
         } else {
             if (!r2.next()) {
-                // login.getLoggable().setText("Invalid password. Try again");
+                try{
+                    r1.close();
+                    r2.close();
+                    statement1.close();
+                    statement2.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 return 1;
             } else {
                 loginController.setLoggedInID(r2.getInt("ID"));
                 loginController.setLoggedInPerson(r2.getString("userType"));
+                try{
+                    r1.close();
+                    r2.close();
+                    statement1.close();
+                    statement2.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 return 2;
             }
         }
-
     }
 }

@@ -33,5 +33,14 @@ public class SalaryCRUD {
         state.setInt(6, id);
 
         state.executeUpdate();
+
+        try{
+            r.close();
+            statement.close();
+            state.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

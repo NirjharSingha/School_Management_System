@@ -23,6 +23,12 @@ public class StudentCRUD {
         statement = con.prepareStatement(insertQuery);
 
         crudHelper(st, imgPath);
+
+        try{
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateStudent(Student st, String imgpath) throws SQLException, FileNotFoundException {
@@ -40,6 +46,12 @@ public class StudentCRUD {
         statement = con.prepareStatement(updateQuery);
 
         crudHelper(st, imgpath);
+
+        try{
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void crudHelper(Student st, String imgPath) throws SQLException, FileNotFoundException {
@@ -84,5 +96,12 @@ public class StudentCRUD {
 
         statement.setInt(1, id);
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

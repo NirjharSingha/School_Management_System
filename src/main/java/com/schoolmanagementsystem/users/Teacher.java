@@ -14,6 +14,12 @@ public class Teacher extends Employee {
 
     }
 
+    public Teacher(int id, String name, String contact, String address, LocalDate date_of_birth, String gender,
+                   String father, String mother, String religion, String designation, String pass, String subject) {
+        super(id, name, contact, address, date_of_birth, gender, father, mother, religion, designation, pass);
+        this.subject = subject;
+    }
+
     public void setSubject(String subject) {
         this.subject = subject;
     }
@@ -26,12 +32,6 @@ public class Teacher extends Employee {
     public void setSection(String sec) {
         this.section[isec] = sec;
         isec++;
-    }
-
-    public Teacher(int id, String name, String contact, String address, LocalDate date_of_birth, String gender,
-            String father, String mother, String religion, String designation, String pass, String subject) {
-        super(id, name, contact, address, date_of_birth, gender, father, mother, religion, designation, pass);
-        this.subject = subject;
     }
 
     public String getSubject() {

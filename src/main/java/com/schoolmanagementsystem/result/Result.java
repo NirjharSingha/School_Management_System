@@ -1,7 +1,5 @@
 package com.schoolmanagementsystem.result;
 
-import com.schoolmanagementsystem.users.Student;
-
 public class Result implements Comparable<Result> {
     private int roll;
     private int halfYearlyMark;

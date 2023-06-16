@@ -854,5 +854,13 @@ public class ClassResultController extends Controller {
             controller.next.setVisible(false);
         }
 
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

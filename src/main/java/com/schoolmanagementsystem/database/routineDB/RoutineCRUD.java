@@ -24,5 +24,11 @@ public class RoutineCRUD {
             statement.setInt(3, i);
             statement.executeUpdate();
         }
+
+        try{
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class ConnectDatabase {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/SchoolManagementSystem";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "20NS01";
+    private static final String DB_USER = "School_DB_User";
+    private static final String DB_PASSWORD = "password";
 
     private final Connection con;
 

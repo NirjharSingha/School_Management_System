@@ -28,6 +28,31 @@ public class Club implements CoCurricular {
     private String fundAmount;
     private ClubCRUD crud;
 
+    public Club(String nameOfClub, String presidentID, String vicePresidentID, String generalSecretaryID,
+                String treasurerID, String clubModeratorID, String assistantGSID, String publicRelationsID,
+                String secretaryID, String executive_1_ID, String executive_2_ID, String executive_3_ID,
+                String fundAmount) {
+        this.nameOfClub = nameOfClub;
+        this.presidentID = presidentID;
+        this.vicePresidentID = vicePresidentID;
+        this.generalSecretaryID = generalSecretaryID;
+        this.treasurerID = treasurerID;
+        this.clubModeratorID = clubModeratorID;
+        this.assistantGSID = assistantGSID;
+        this.publicRelationsID = publicRelationsID;
+        this.secretaryID = secretaryID;
+        this.executive_1_ID = executive_1_ID;
+        this.executive_2_ID = executive_2_ID;
+        this.executive_3_ID = executive_3_ID;
+        this.fundAmount = fundAmount;
+
+        this.crud = new ClubCRUD();
+    }
+
+    public Club() {
+        this.crud = new ClubCRUD();
+    }
+
     public String getNameOfClub() {
         return nameOfClub;
     }
@@ -80,31 +105,6 @@ public class Club implements CoCurricular {
         return fundAmount;
     }
 
-    public Club(String nameOfClub, String presidentID, String vicePresidentID, String generalSecretaryID,
-            String treasurerID, String clubModeratorID, String assistantGSID, String publicRelationsID,
-            String secretaryID, String executive_1_ID, String executive_2_ID, String executive_3_ID,
-            String fundAmount) {
-        this.nameOfClub = nameOfClub;
-        this.presidentID = presidentID;
-        this.vicePresidentID = vicePresidentID;
-        this.generalSecretaryID = generalSecretaryID;
-        this.treasurerID = treasurerID;
-        this.clubModeratorID = clubModeratorID;
-        this.assistantGSID = assistantGSID;
-        this.publicRelationsID = publicRelationsID;
-        this.secretaryID = secretaryID;
-        this.executive_1_ID = executive_1_ID;
-        this.executive_2_ID = executive_2_ID;
-        this.executive_3_ID = executive_3_ID;
-        this.fundAmount = fundAmount;
-
-        this.crud = new ClubCRUD();
-    }
-
-    public Club() {
-        this.crud = new ClubCRUD();
-    }
-
     @Override
     public void addFund(String fund) throws SQLException {
         crud.addFund(fund);
@@ -151,6 +151,15 @@ public class Club implements CoCurricular {
             executivePanel.add(new Pair<>("executive_3", r.getInt("executive_3")));
 
         }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return executivePanel;
     }
 
@@ -178,6 +187,14 @@ public class Club implements CoCurricular {
         while (r.next()) {
             int record = r.getInt("studentID");
             records.add(record);
+        }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return records;

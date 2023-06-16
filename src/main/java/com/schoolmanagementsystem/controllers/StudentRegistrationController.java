@@ -140,6 +140,14 @@ public class StudentRegistrationController extends Controller implements Initial
                     if (!r.next()) {
                         break;
                     }
+
+                    try{
+                        r.close();
+                        statement.close();
+                        con.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             } else {
                 id = Controller.requiredID;

@@ -342,6 +342,22 @@ public class RoutineController extends Controller implements Initializable {
     @FXML
     private TextField teacherInput9;
 
+    public static int getSelectedClass() {
+        return selectedClass;
+    }
+
+    public static void setSelectedClass(int selectedClass) {
+        RoutineController.selectedClass = selectedClass;
+    }
+
+    public static String getSelectedSection() {
+        return selectedSection;
+    }
+
+    public static void setSelectedSection(String selectedSection) {
+        RoutineController.selectedSection = selectedSection;
+    }
+
     public void handleRoutinePage(Event event) throws IOException, SQLException {
 
         String buttonType;
@@ -580,6 +596,13 @@ public class RoutineController extends Controller implements Initializable {
                         controller.teacher25.setText(r.getString("teacher"));
                     }
                 }
+
+                try{
+                    r.close();
+                    statement.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         } else {
@@ -770,7 +793,20 @@ public class RoutineController extends Controller implements Initializable {
                         controller.teacherInput25.setText(r.getString("teacher"));
                     }
                 }
+
+                try{
+                    r.close();
+                    statement.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        }
+
+        try{
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -778,22 +814,6 @@ public class RoutineController extends Controller implements Initializable {
     @FXML
     void handleClass(Event event) {
 
-    }
-
-    public static int getSelectedClass() {
-        return selectedClass;
-    }
-
-    public static void setSelectedClass(int selectedClass) {
-        RoutineController.selectedClass = selectedClass;
-    }
-
-    public static String getSelectedSection() {
-        return selectedSection;
-    }
-
-    public static void setSelectedSection(String selectedSection) {
-        RoutineController.selectedSection = selectedSection;
     }
 
     @FXML

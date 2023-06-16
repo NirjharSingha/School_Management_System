@@ -367,9 +367,7 @@ public class ClubController extends Controller implements Initializable {
         }
 
         try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
+            resultSet.close();
             s.close();
             con.close();
         } catch (SQLException e) {
@@ -518,8 +516,8 @@ public class ClubController extends Controller implements Initializable {
             ResultSet r2 = statement2.executeQuery();
 
             String q;
-            PreparedStatement s;
-            ResultSet resultSet;
+            PreparedStatement s = null;
+            ResultSet resultSet = null;
 
             if (r2.next()) {
 
@@ -545,6 +543,26 @@ public class ClubController extends Controller implements Initializable {
 
             }
 
+            try{
+                r2.close();
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+                statement2.close();
+                if(s != null) {
+                    s.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

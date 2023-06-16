@@ -128,6 +128,14 @@ public class StaffProfileController extends Controller {
             controller.profilePic.setImage(image);
 
         }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleUpdate(MouseEvent mouseEvent) throws IOException, SQLException {

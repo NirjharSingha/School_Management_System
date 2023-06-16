@@ -30,5 +30,14 @@ public class FeeCRUD {
         state.setInt(3, fee.getStudentID());
 
         state.executeUpdate();
+
+        try{
+            r.close();
+            statement.close();
+            state.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -166,9 +166,7 @@ public class SalaryController extends Controller implements Initializable {
 
             if (!SalaryController.updateFlag) {
                 controller.update.setText("Update");
-                // if(SalaryController.applyFlag) {
-                // controller.update.setText("Apply");
-                // }
+
                 controller.rentPercentage.setText(r.getInt("houseRent") + "% of Base Salary");
                 controller.noOfChild.setText("for " + r.getInt("noOfChild") + " children");
                 controller.baseSalary.setText(String.valueOf(r.getInt("baseSalary")));
@@ -220,6 +218,14 @@ public class SalaryController extends Controller implements Initializable {
 
             }
 
+        }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -293,13 +299,14 @@ public class SalaryController extends Controller implements Initializable {
         }
     }
 
+    @FXML
+    void handleInvalid(Event keyEvent) {
+        invalid.setVisible(false);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         childInput.getItems().addAll("0 child", "1 child", "More than 1");
     }
 
-    @FXML
-    void handleInvalid(Event keyEvent) {
-        invalid.setVisible(false);
-    }
 }

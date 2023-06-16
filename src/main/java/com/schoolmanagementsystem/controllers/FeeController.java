@@ -95,6 +95,13 @@ public class FeeController extends Controller {
                 dateInput.setValue(LocalDate.parse(String.valueOf(r.getDate("paymentDate"))));
             }
 
+            try{
+                r.close();
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } else {
             if (feeInput.getText().isEmpty() || dateInput.getValue() == null) {
                 invalid.setVisible(true);
@@ -134,7 +141,18 @@ public class FeeController extends Controller {
                     dateLabel.setText(String.valueOf(LocalDate.parse(String.valueOf(r.getDate("paymentDate")))));
                 }
 
+                try{
+                    r.close();
+                    statement.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        }
+        try{
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

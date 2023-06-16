@@ -73,6 +73,10 @@ public abstract class Controller {
 
     protected static boolean allUserFlag;
 
+    public static int getRequiredID() {
+        return requiredID;
+    }
+
     @FXML
     void teacherReg(ActionEvent event) throws IOException {
         Controller.isUpdate = false;
@@ -194,10 +198,6 @@ public abstract class Controller {
         } else if (loginController.getLoggedInPerson().equals("Admin")) {
             loadPage("button", "/com/schoolmanagementsystem/fxml_Files/chooseProfile.fxml", actionEvent);
         }
-    }
-
-    public static int getRequiredID() {
-        return requiredID;
     }
 
     public FXMLLoader loadPage(String buttonType, String str, Event event) throws IOException {
@@ -353,8 +353,8 @@ public abstract class Controller {
             imagePath = selectedFile.getPath();
             Image image = new Image(selectedFile.toURI().toString());
             Img.setImage(image);
-            Img.setFitHeight(135); // Set the height to 300 pixels
-            Img.setFitWidth(170); // Set the width to 400 pixels
+            Img.setFitHeight(135); // Set the height to 135 pixels
+            Img.setFitWidth(170); // Set the width to 170 pixels
             imgButton.setVisible(false);
         }
 

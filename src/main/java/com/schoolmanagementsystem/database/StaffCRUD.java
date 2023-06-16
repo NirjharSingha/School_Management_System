@@ -47,6 +47,12 @@ public class StaffCRUD {
         }
 
         statement.executeUpdate();
+
+        try{
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateStaff(Staff emp, String imgPath) throws SQLException, FileNotFoundException {
@@ -89,6 +95,12 @@ public class StaffCRUD {
         }
 
         statement.executeUpdate();
+
+        try{
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteStaff(int id) throws SQLException {
@@ -101,6 +113,13 @@ public class StaffCRUD {
 
         statement.setInt(1, id);
         statement.executeUpdate();
+
+        try{
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

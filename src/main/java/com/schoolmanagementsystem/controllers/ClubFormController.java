@@ -168,8 +168,8 @@ public class ClubFormController extends Controller implements Initializable {
         Connection con = db.getCon();
 
         String query;
-        PreparedStatement statement;
-        ResultSet r;
+        PreparedStatement statement = null;
+        ResultSet r = null;
 
         ClubFormController.confirmFlag = true;
 
@@ -345,6 +345,13 @@ public class ClubFormController extends Controller implements Initializable {
                     ClubFormController.confirmFlag = false;
                     handleAlert("This club already exists", "");
                 }
+
+                try{
+                    r1.close();
+                    statement2.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -363,6 +370,18 @@ public class ClubFormController extends Controller implements Initializable {
             } else {
                 clubController.handleClubPage(event);
             }
+        }
+
+        try{
+            if(r != null) {
+                r.close();
+            }
+            if(statement != null) {
+                statement.close();
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

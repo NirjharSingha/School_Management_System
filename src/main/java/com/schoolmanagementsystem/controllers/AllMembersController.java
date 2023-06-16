@@ -1,6 +1,5 @@
 package com.schoolmanagementsystem.controllers;
 
-import com.schoolmanagementsystem.co_curricular.Club;
 import com.schoolmanagementsystem.database.ConnectDatabase;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -291,8 +290,8 @@ public class AllMembersController extends Controller implements Initializable {
 
         ArrayList<Pair<Integer, String>> allMember = new ArrayList<>();
         String query, selectQuery;
-        PreparedStatement statement, preparedStatement;
-        ResultSet r, resultSet;
+        PreparedStatement statement, preparedStatement = null;
+        ResultSet r, resultSet = null;
 
         if (Objects.equals(AllMembersController.currentList, "Student")) {
             if(AllMembersController.selectedClass == 0 && AllMembersController.selectedSection == null) {
@@ -395,6 +394,20 @@ public class AllMembersController extends Controller implements Initializable {
         }
         if (AllMembersController.currentIndex + 15 >= allMember.size()) {
             controller.next.setVisible(false);
+        }
+
+        try{
+            r.close();
+            if(resultSet != null) {
+                resultSet.close();
+            }
+            statement.close();
+            if(preparedStatement != null) {
+                preparedStatement.close();
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

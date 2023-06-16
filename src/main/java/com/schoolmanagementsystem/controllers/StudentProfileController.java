@@ -97,7 +97,6 @@ public class StudentProfileController extends Controller {
     }
 
     public void handleStudentProfile(Event event, int id) throws IOException, SQLException {
-        // loadPage("button","/com/schoolmanagementsystem/student.fxml",event);
         Controller.requiredID = id;
 
         FXMLLoader fxmlLoader = loadPage("button", "/com/schoolmanagementsystem/fxml_Files/student.fxml", event);
@@ -151,6 +150,14 @@ public class StudentProfileController extends Controller {
 
         if (image != null) {
             controller.profilePic.setImage(image);
+        }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

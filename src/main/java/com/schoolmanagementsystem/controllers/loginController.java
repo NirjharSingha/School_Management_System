@@ -51,15 +51,6 @@ public class loginController extends Controller implements Initializable {
     @FXML
     private Hyperlink link;
 
-
-    public static String getLoggedInPerson() {
-        return loggedInPerson;
-    }
-
-    public static void setLoggedInPerson(String loggedInPerson) {
-        loginController.loggedInPerson = loggedInPerson;
-    }
-
     public loginController() {
 
     }
@@ -69,6 +60,22 @@ public class loginController extends Controller implements Initializable {
         this.pass = pass;
         loginController.loggedInPerson = null;
         // controller = new Controller();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public static String getLoggedInPerson() {
+        return loggedInPerson;
+    }
+
+    public static void setLoggedInPerson(String loggedInPerson) {
+        loginController.loggedInPerson = loggedInPerson;
     }
 
     @FXML
@@ -106,18 +113,6 @@ public class loginController extends Controller implements Initializable {
 
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // loggedInPerson = "";
-    }
 
     public void handleLink(ActionEvent actionEvent) throws IOException, SQLException {
         loggable.setText("");
@@ -156,14 +151,24 @@ public class loginController extends Controller implements Initializable {
                 loadPage("hyperLink", "/com/schoolmanagementsystem/fxml_Files/staffRegistrationForm.fxml", actionEvent);
             }
         } else {
-            // handleAlert("Incorrect password", "Without correct password you cannot
-            // register");
             loggable.setText("Invalid password. Try again");
+        }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
     void inputChange(KeyEvent keyEvent) {
         loggable.setText("");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
     }
 }

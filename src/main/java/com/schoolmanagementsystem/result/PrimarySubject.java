@@ -17,28 +17,4 @@ public class PrimarySubject extends CompulsorySubject {
         this.math = math;
         this.science = science;
     }
-
-    public double getReli() {
-        return reli;
-    }
-
-    public void setReli(double reli) {
-        this.reli = reli;
-    }
-
-    public double getScience() {
-        return science;
-    }
-
-    public void setScience(double science) {
-        this.science = science;
-    }
-
-    public double getMath() {
-        return math;
-    }
-
-    public void setMath(double math) {
-        this.math = math;
-    }
 }

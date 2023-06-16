@@ -497,6 +497,15 @@ public class StudentResultController extends Controller {
                 allSubjects.add(subject);
             }
         }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return allSubjects;
     }
 

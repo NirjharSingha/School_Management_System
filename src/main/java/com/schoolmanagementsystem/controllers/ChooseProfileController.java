@@ -1,21 +1,13 @@
 package com.schoolmanagementsystem.controllers;
 
-import com.schoolmanagementsystem.database.ConnectDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ChooseProfileController extends Controller implements Initializable {

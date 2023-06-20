@@ -2,7 +2,7 @@
 
 The School Management System software is an application that has been specifically designed for managing the administration of schools. It is a Java-based software that enables the storage of all school-related information, including  academic, administrative, and other tasks.
 
-In our app, we allowed the types of users to log in -
+In our app, we allowed three types of users to log in -
 1. Admin
 2. Teacher
 3. Staff
@@ -76,7 +76,22 @@ Similarly, in package com.schoolmanagementsystem.database.routineDB there is a j
 In that file also, you need to update the DB_USER, DB_PASSWORD like previous to connect the database with your system.<br>
 
 Finally, to connect java app with mysql database, we need to connect jdbc( java-mysql-connector ) to the project in library inside project structure.<br>
-In project root directory, there is a lib folder. Inside the lib folder there is a jar file called mysql-connector-j-8.0.32.jar<br>
+In project base directory, there is a folder named lib. Inside the lib folder there is a jar file called mysql-connector-j-8.0.32.jar<br>
 You need to add the jar file in the project library to run the project.
 
+While setting up the project, you need to be careful about the java version(version java-1.19.0-openjdk-amd64) as well as JavaFX dependencies related to Apache Maven build tool.
+
 If you have done all this, then your app is ready to launch.
+
+If you still face any problem running the app locally, then you can run the jar file of the app as well.<br>
+For this, at first navigate to the base directory of the project.<br>
+Then run the following commands in the terminal or cmd:
+
+```bash
+cd dist
+java --module-path ./JavaFX_Runtime_Components --add-modules javafx.controls,javafx.fxml -jar SchoolManagementSystem.jar
+```
+
+In project base directory, there is a sub-folder named dist. In that folder, the jar file of the project(SchoolManagementSystem.jar) is present. Using the command stated above you can run the jar file. To run the jar file, some javaFX runtime components are needed. These components are already present inside dist/JavaFX_Runtime_Components sub-folder and added in the command that is stated above to run the jar file of the app.
+
+But before running the jar file, you need to create the databases and new MySQL user following the instructions stated above. Otherwise, the jar file won't get the access to the database.

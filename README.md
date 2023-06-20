@@ -32,41 +32,37 @@ Local Development:
 
 To run the app locally, you need to have java(version java-1.19.0-openjdk-amd64) and mysql server installed in your device. If you have these dependencies installed then you can clone the git repository running the following command in terminal or cmd:
 
-git clone https://github.com/NirjharSingha/School_Management_System.git
-
-cd School_Management_System
+* git clone https://github.com/NirjharSingha/School_Management_System.git
+* cd School_Management_System
 
 As MySQL Database is used in the application, you need to build the database locally first to run the app. For this, in project root folder, there is a folder named databases. In databases folder, there is again two sub-folders:
 1. SQL_Dumped_Databases
 2. SQL_Scripts
-   
+
 There are two databases used in our project - SchoolManagementSystem and RoutineDatabase.
 In SQL_Scripts folder, there are two sql files which contains the schema of the databases. If you run these scripts in mysql monitor or workbench or similar application, then the two databases will be created with an admin user having id 1111111 and password a . But there will be no other sample users in these databases.
 If you want to create databases with demo users, then you need to run the MySQL Dumped files. For this, in SQL_Dumped_Databases there are two dumped database scripts. Running those scripts, you will have databases with demo users as well.
 To create the databases, run the following commands in terminal or cmd(not in MySQL monitor):
 
-cd databases
-
-cd SQL_Dumped_Databases
-
-mysql -u root -p -e "CREATE DATABASE SchoolManagementSystem2;"
-
-mysql -u root -p SchoolManagementSystem2 < SchoolManagementSystem_DumpedDatabase.sql
-
-mysql -u root -p -e "CREATE DATABASE RoutineDatabase2;"
-
-mysql -u root -p RoutineDatabase2 < RoutineDB_DumpedDatabase.sql
+* cd databases
+* cd SQL_Dumped_Databases
+* mysql -u root -p -e "CREATE DATABASE SchoolManagementSystem;"
+* mysql -u root -p SchoolManagementSystem < SchoolManagementSystem_DumpedDatabase.sql
+* mysql -u root -p -e "CREATE DATABASE RoutineDatabase;"
+* mysql -u root -p RoutineDatabase < RoutineDB_DumpedDatabase.sql
 
 Running these commands will create the two databases with sample data.
-Admin data will be inserted it the Database as well.
+Admin data will be inserted in the Database as well.
+
 Admin id will be : 1111111 and
+
 Admin password will be : a
 
 To connect the app with the databases, the databases should be run on localhost:3306 port.
 To connect the app with the databases, you need to create a new user with the username "School_DB_User" and password "password".
 To create the user run the following command in terminal to log in MySQL server:
 
-mysql -u root -p
+* mysql -u root -p
 
 After entering password, you'll log into MySQL server. Now run the following sql scripts to create the user:
 

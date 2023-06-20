@@ -439,6 +439,23 @@ public class ClassResultController extends Controller {
     }
 
     @FXML
+    void handleCalculate(ActionEvent event) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/schoolmanagementsystem/fxml_Files/resultAlgorithm.fxml"));
+        Parent algorithmPage = loader.load();
+
+        algorithmPage.setLayoutX(classResult.getWidth() / 2 - algorithmPage.prefWidth(-1) / 2);
+        algorithmPage.setLayoutY(classResult.getHeight() / 2 - algorithmPage.prefHeight(-1) / 2);
+        algorithmPage.setTranslateX(0);
+        algorithmPage.setTranslateY(0);
+
+        // Add the new page as a child node to the root pane
+        classResult.getChildren().add(algorithmPage);
+    }
+
+    //class and section functions will update the selected class and sections accordingly
+    //ClassResultController.currentIndex is set to 0 because the data will be displayed from page 1
+    @FXML
     void class_1(ActionEvent event) throws IOException, SQLException {
         ClassResultController.selectedClass = 1;
         Controller.resultFlag = false;
@@ -519,21 +536,6 @@ public class ClassResultController extends Controller {
     }
 
     @FXML
-    void handleCalculate(ActionEvent event) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/schoolmanagementsystem/fxml_Files/resultAlgorithm.fxml"));
-        Parent algorithmPage = loader.load();
-
-        algorithmPage.setLayoutX(classResult.getWidth() / 2 - algorithmPage.prefWidth(-1) / 2);
-        algorithmPage.setLayoutY(classResult.getHeight() / 2 - algorithmPage.prefHeight(-1) / 2);
-        algorithmPage.setTranslateX(0);
-        algorithmPage.setTranslateY(0);
-
-        // Add the new page as a child node to the root pane
-        classResult.getChildren().add(algorithmPage);
-    }
-
-    @FXML
     void handleClass(ActionEvent event) throws IOException {
 
     }
@@ -567,6 +569,8 @@ public class ClassResultController extends Controller {
         handleClassResultPage(event);
     }
 
+    //handlePrevious and handleNext function will handle the page change
+    //ClassResultController.currentIndex will be used to verify which page should be displayed
     @FXML
     void handleNext(ActionEvent event) throws SQLException, IOException {
         ClassResultController.currentIndex += 15;
@@ -581,7 +585,9 @@ public class ClassResultController extends Controller {
         handleClassResultPage(event);
     }
 
+    //this page is auto generated. it fetches the marks of the students from database and calculate their ranks according to a predefined algorithm
     public void handleClassResultPage(Event event) throws IOException, SQLException {
+        //the button type will be used to load the page
         String buttonType;
         if (Controller.resultFlag) {
             buttonType = "button";
@@ -600,6 +606,7 @@ public class ClassResultController extends Controller {
         }
 
         if (ClassResultController.selectedClass == 0 || ClassResultController.selectedSection == null) {
+            //no class or no section is chosen to display the result
             controller.resultScroll.setVisible(false);
             controller.previous.setVisible(false);
             controller.next.setVisible(false);
@@ -626,6 +633,7 @@ public class ClassResultController extends Controller {
         PreparedStatement statement;
         ResultSet r;
 
+        //fetching the algorithm from database to calculate ranks of students
         query = "SELECT * FROM resultAlgo WHERE demoID = ?";
         statement = con.prepareStatement(query);
         statement.setInt(1, 1);
@@ -642,9 +650,11 @@ public class ClassResultController extends Controller {
 
         Result.setSortBy(priority);
 
+        //formatting the gpa with two digits after decimal point
         DecimalFormat df = new DecimalFormat("#.##");
 
         for (int i = 0; i < allStudents.size(); i++) {
+            //fetching the marks from database and calculating the gpa accordingly
             int studentID = allStudents.get(i).getKey();
             int roll = allStudents.get(i).getValue();
             int total = 0;
@@ -704,9 +714,9 @@ public class ClassResultController extends Controller {
         Result.setSortBy(null);
 
         Collections.sort(allResults);
-        // if(allStudents.size() == )
 
         for (int i = ClassResultController.currentIndex; i < ClassResultController.currentIndex + 15; i++) {
+            //displaying the calculated result
             if (i >= allResults.size()) {
                 break;
             } else if (i == ClassResultController.currentIndex) {

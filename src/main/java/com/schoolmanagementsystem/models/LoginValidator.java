@@ -13,8 +13,10 @@ public class LoginValidator {
     public static int log(loginController login) throws SQLException {
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
-
+        //check whether id exists or not
         String query1 = "SELECT * FROM loginInfo WHERE ID = ?";
+
+        //if id exists, then check whether password is right or wrong
         String query2 = "SELECT * FROM loginInfo WHERE ID = ? AND password = ?";
         PreparedStatement statement1 = con.prepareStatement(query1);
         PreparedStatement statement2 = con.prepareStatement(query2);
@@ -37,7 +39,7 @@ public class LoginValidator {
                 e.printStackTrace();
             }
 
-            return 0;
+            return 0; //id doesn't exist
         } else {
             if (!r2.next()) {
                 try{
@@ -50,7 +52,7 @@ public class LoginValidator {
                     e.printStackTrace();
                 }
 
-                return 1;
+                return 1; //wrong password
             } else {
                 loginController.setLoggedInID(r2.getInt("ID"));
                 loginController.setLoggedInPerson(r2.getString("userType"));
@@ -64,7 +66,7 @@ public class LoginValidator {
                     e.printStackTrace();
                 }
 
-                return 2;
+                return 2; //successful log in
             }
         }
     }

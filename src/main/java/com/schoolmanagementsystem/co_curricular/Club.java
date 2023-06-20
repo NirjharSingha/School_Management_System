@@ -137,6 +137,8 @@ public class Club implements CoCurricular {
 
         ArrayList<Pair<String, Integer>> executivePanel = new ArrayList<>();
 
+        //fetching the data of the executive panel members of a club on basis of clubID
+
         if (r.next()) {
             executivePanel.add(new Pair<>("president", r.getInt("president")));
             executivePanel.add(new Pair<>("vicePresident", r.getInt("vicePresident")));
@@ -176,6 +178,8 @@ public class Club implements CoCurricular {
         if (resultSet.next()) {
             clubName = resultSet.getString("clubName");
         }
+
+        //fetch studentID of the members of a club on basis of unique clubName
 
         query = "SELECT studentID FROM clubMembers WHERE " + clubName + " = ?";
         statement = con.prepareStatement(query);

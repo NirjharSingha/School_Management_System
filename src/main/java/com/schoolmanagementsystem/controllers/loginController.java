@@ -91,6 +91,7 @@ public class loginController extends Controller implements Initializable {
         loginController login = new loginController(id, pass);
 
         if (loginController.loggedInPerson == null) {
+            //no one is logged int now
             try {
                 int ans = LoginValidator.log(login);
                 if (ans == 0) {
@@ -98,6 +99,7 @@ public class loginController extends Controller implements Initializable {
                 } else if (ans == 1) {
                     loggable.setText("Invalid password. Try again");
                 } else {
+                    //successful login
                     loggable.setText("");
                     handleHome(event);
                 }
@@ -105,6 +107,7 @@ public class loginController extends Controller implements Initializable {
                 e.printStackTrace();
             }
         } else {
+            // the logged in person is logging out
             loginController.setLoggedInPerson(null);
             loginController.setLoggedInID(0);
 
@@ -115,6 +118,10 @@ public class loginController extends Controller implements Initializable {
 
 
     public void handleLink(ActionEvent actionEvent) throws IOException, SQLException {
+        //this link will navigate him/her to registration page if he doesn't have any account
+        //only the admin has the right to add new user
+        //so for verification the person needs to enter the admin password
+
         loggable.setText("");
         String adminPassword = "";
         String role = "";
@@ -165,6 +172,7 @@ public class loginController extends Controller implements Initializable {
 
     @FXML
     void inputChange(KeyEvent keyEvent) {
+        //this function will make the text wrong input invisible if user gives new input
         loggable.setText("");
     }
 

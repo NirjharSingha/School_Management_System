@@ -97,7 +97,7 @@ public class StudentRegistrationController extends Controller implements Initial
     }
 
     public void submitHandler(ActionEvent event) throws SQLException, IOException {
-
+        //check whether any field is empty or not. because form cannot be submitted with empty field
         if (religion.getText().isEmpty() || sname.getText().isEmpty() || fname.getText().isEmpty()
                 || mname.getText().isEmpty() || roll.getText().isEmpty() || contact.getText().isEmpty()
                 || address.getText().isEmpty()) {
@@ -109,9 +109,11 @@ public class StudentRegistrationController extends Controller implements Initial
             cross.setVisible(true);
         } else if (validateNum(roll.getText()) || validateNum(contact.getText())
                 || contact.getText().length() != 11 || validateDate(dob)) {
+            //check whether contact number is an 11-digit number or not, roll is a number or not and date of birth is a valid date or not
             wrongInput.setText("Incorrect or empty Input. Give correct information");
             cross.setVisible(true);
         } else if (!Controller.isUpdate && imgPath == null) {
+            //check profile picture is empty or not while registering
             wrongInput.setText("Incorrect or empty Input. Give correct information");
             cross.setVisible(true);
         } else {
@@ -124,11 +126,14 @@ public class StudentRegistrationController extends Controller implements Initial
             int id;
 
             if (!Controller.isUpdate) {
+                //new student register
                 while (true) {
 
                     ConnectDatabase db = new ConnectDatabase();
                     Connection con = db.getCon();
 
+                    //the random id generator will generate a random id, check whether this id already exists in the
+                    //database or not and continue generating random ids until a unique id is generated
                     String query = "SELECT * FROM studentInfo WHERE studentID = ?";
                     id = 100000 * year + 10000 * clas + rand.nextInt(9000) + 1000;
 
@@ -150,6 +155,7 @@ public class StudentRegistrationController extends Controller implements Initial
                     }
                 }
             } else {
+                //updating old profile
                 id = Controller.requiredID;
             }
 
@@ -157,6 +163,7 @@ public class StudentRegistrationController extends Controller implements Initial
             String message2 = "Your id is " + id + "\nPlease remember this id for further access.";
 
             if (!Controller.isUpdate) {
+                //new student register
                 if (handleAlert(message1, message2)) {
                     wrongInput.setText("Congratulation. You have successfully Registered");
                     cross.setVisible(true);
@@ -170,6 +177,7 @@ public class StudentRegistrationController extends Controller implements Initial
                     handleHome(event);
                 }
             } else {
+                //updating old profile
                 message1 = "The data will be permanently updated.";
                 message2 = "Are you sure to proceed ?";
 
@@ -206,7 +214,7 @@ public class StudentRegistrationController extends Controller implements Initial
     }
 
     public void updateHelp(Event event) throws IOException, SQLException {
-
+        //helper function to handle update profile
         Controller.isUpdate = true;
 
         FXMLLoader fxmlLoader = loadPage("label", "/com/schoolmanagementsystem/fxml_Files/studentRegistrationForm.fxml",
@@ -230,6 +238,8 @@ public class StudentRegistrationController extends Controller implements Initial
         byte[] imageData;
 
         if (r.next()) {
+            //the previously stored data in database is used here as default value
+            //user will update only the required field. rest will be taken from previous entry in database
             controller.sname.setText(r.getString("name"));
             controller.classNumber.setValue(r.getInt("class"));
             controller.roll.setText(String.valueOf(r.getInt("roll")));

@@ -79,13 +79,13 @@ public class TeacherProfileController extends Controller {
     private ImageView deleteIcon;
 
     public void handleTeacherProfile(Event event, int id) throws IOException, SQLException {
-        // loadPage("button","/com/schoolmanagementsystem/teacher.fxml",event);
 
         FXMLLoader fxmlLoader = loadPage("button", "/com/schoolmanagementsystem/fxml_Files/teacher.fxml", event);
 
         TeacherProfileController controller = fxmlLoader.getController();
 
         if (!Objects.equals(loginController.getLoggedInPerson(), "Admin")) {
+            //update and delete feature will be accessible only by admin, not by other users
             controller.updateIcon.setVisible(false);
             controller.updateIcon.setManaged(false);
             controller.update.setVisible(false);
@@ -109,6 +109,7 @@ public class TeacherProfileController extends Controller {
         byte[] imageData;
 
         if (r.next()) {
+            //displaying the data fetched from the database
             controller.teacherName.setText(r.getString("name").toUpperCase());
             controller.designation.setText(r.getString("profession").toUpperCase());
             controller.subTeacher.setText(r.getString("subject").toUpperCase());
@@ -170,6 +171,7 @@ public class TeacherProfileController extends Controller {
 
     @FXML
     void handleCross(ActionEvent event) throws SQLException, IOException {
+        //the cross button will navigate to the previous page
         if(Controller.allUserFlag) {
             AllMembersController.setAllUserFlag(true);
             AllMembersController controller = new AllMembersController();

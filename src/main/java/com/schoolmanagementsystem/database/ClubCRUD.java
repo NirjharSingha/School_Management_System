@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class ClubCRUD {
 
     public void addOrUpdateHelp(String ID, String query, String clubName) throws SQLException {
+        //helper function to add or update a club
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
@@ -106,6 +107,8 @@ public class ClubCRUD {
         delStatement.executeUpdate();
         alterStatement.executeUpdate();
 
+        //the club id is auto-incremented when a new club is added
+        //so reset the id of the clubs when one club is deleted
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT MAX(clubID) FROM club");
         rs.next();
@@ -170,12 +173,15 @@ public class ClubCRUD {
         st.setInt(1, ClubController.getSelectedClub() + 1);
         ResultSet r = st.executeQuery();
         int currentFund = 0;
+
+        //fetching the  current fund amount from database
         if (r.next()) {
             if (r.getString("fund") != null) {
                 currentFund = Integer.parseInt(r.getString("fund"));
             }
         }
         int deductedFund = Integer.parseInt(fund);
+        //insufficient balance to spend
         if (deductedFund > currentFund) {
             try{
                 r.close();
@@ -186,6 +192,8 @@ public class ClubCRUD {
             }
             return false;
         }
+
+        //amount deducted successfully
         currentFund -= Integer.parseInt(fund);
         String query = "UPDATE club SET fund = ? WHERE clubID = ?";
         PreparedStatement statement = con.prepareStatement(query);
@@ -214,6 +222,7 @@ public class ClubCRUD {
         st.setInt(1, id);
         ResultSet r = st.executeQuery();
 
+        //checking whether the id is a valid id or not before adding that member
         if (!r.next()) {
             try{
                 r.close();
@@ -225,6 +234,8 @@ public class ClubCRUD {
             return "This id doesn't exist";
         }
 
+        //if valid id, then check whether the member is in executive panel or not
+        //executive panel members already belong to the club
         Club club = new Club();
         ArrayList<Pair<String, Integer>> ecPanel = club.ecPanel();
         for (Pair<String, Integer> stringIntegerPair : ecPanel) {
@@ -255,6 +266,7 @@ public class ClubCRUD {
         r = st.executeQuery();
 
         if (r.next()) {
+            //the id has an entry in club members table in database
             if (r.getBoolean(clubName)) {
                 try{
                     r.close();
@@ -265,6 +277,7 @@ public class ClubCRUD {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                //this is already a member. no need to add again
                 return "This is already a member";
             } else {
                 String q = "UPDATE clubMembers SET " + clubName + " = ? WHERE studentID = ?";
@@ -283,11 +296,11 @@ public class ClubCRUD {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
+                //member added successfully  via update query
                 return "Member added successfully";
             }
         }
-
+        //the id has no entry in club members table in database. so it is added via insert query
         String q = "INSERT INTO clubMembers (studentID, " + clubName + " ) VALUES (?, ?)";
         PreparedStatement stat = con.prepareStatement(q);
         stat.setInt(1, id);
@@ -312,6 +325,7 @@ public class ClubCRUD {
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
+        //checking whether the id is a valid id or not before deleting that member
         String selectQuery = "SELECT * FROM studentInfo WHERE studentID = ?";
         PreparedStatement st = con.prepareStatement(selectQuery);
         st.setInt(1, id);
@@ -329,6 +343,8 @@ public class ClubCRUD {
             return "This id doesn't exist";
         }
 
+        //if valid id, then check whether the member is in executive panel or not
+        //there are other methods to delete a member who is in executive panel
         Club club = new Club();
         ArrayList<Pair<String, Integer>> ecPanel = club.ecPanel();
         for (Pair<String, Integer> stringIntegerPair : ecPanel) {
@@ -360,6 +376,7 @@ public class ClubCRUD {
         r = st.executeQuery();
 
         if (r.next()) {
+            //this id is entered in club members table in database
             if (!r.getBoolean(clubName)) {
                 try{
                     r.close();
@@ -371,6 +388,7 @@ public class ClubCRUD {
                     e.printStackTrace();
                 }
 
+                //if the previous two case satisfied, then check whether that person is a member of this club or not
                 return "This is not a member";
             } else {
                 String q = "UPDATE clubMembers SET " + clubName + " = ? WHERE studentID = ?";
@@ -390,6 +408,7 @@ public class ClubCRUD {
                     e.printStackTrace();
                 }
 
+                //all cases checked. member deleted successfully
                 return "Member deleted successfully";
             }
         }
@@ -403,7 +422,7 @@ public class ClubCRUD {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        //this id has no entry in club members table in database
         return "This is not a member";
     }
 }

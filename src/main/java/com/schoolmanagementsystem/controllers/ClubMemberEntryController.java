@@ -18,7 +18,9 @@ import java.util.ResourceBundle;
 public class ClubMemberEntryController extends Controller implements Initializable {
 
     private static boolean addFund;
+
     private static boolean spendFund;
+
     @FXML
     private Button apply;
 
@@ -40,22 +42,28 @@ public class ClubMemberEntryController extends Controller implements Initializab
     @FXML
     void handleApply(ActionEvent event) throws SQLException {
         if (inputField.getText().isEmpty()) {
+            //empty input
             invalid.setText("Empty input");
         } else {
 
             Club club = new Club();
 
             if (ClubController.isFundFlag()) {
+                //handling fund
                 if (validateNum(inputField.getText())) {
+                    //invalid input
                     invalid.setText("Fund must be a number");
                 } else {
+                    //empty input
                     if (!ClubMemberEntryController.addFund && !ClubMemberEntryController.spendFund) {
                         invalid.setText("Select add or spend");
                     } else {
                         if (ClubMemberEntryController.addFund) {
+                            //fund adding
                             club.addFund(inputField.getText());
                             invalid.setText("Fund added successfully");
                         } else {
+                            //fund spending
                             if (club.spendFund(inputField.getText())) {
                                 invalid.setText("Amount deducted successfully");
                             } else {
@@ -65,12 +73,16 @@ public class ClubMemberEntryController extends Controller implements Initializab
                     }
                 }
             } else {
+                //handling club member entry or delete
                 if (validateNum(inputField.getText())) {
+                    //invalid id
                     invalid.setText("ID must be a number");
                 } else {
                     if (ClubController.isAddMemberFlag()) {
+                        //adding new member
                         invalid.setText(club.addMember(Integer.parseInt(inputField.getText())));
                     } else if (ClubController.isDeleteMemberFlag()) {
+                        //deleting an existing member
                         invalid.setText(club.removeMember(Integer.parseInt(inputField.getText())));
                     }
                 }
@@ -80,6 +92,7 @@ public class ClubMemberEntryController extends Controller implements Initializab
 
     @FXML
     void handleCross(ActionEvent event) throws SQLException, IOException {
+        //the cross button will navigate to the previous page
         ClubController controller = new ClubController();
         controller.handleClubPage(event);
     }

@@ -19,8 +19,10 @@ public class SalaryCRUD {
         String query;
 
         if (r.next()) {
+            //update query if the employee data is already present in the salary table in database
             query = "UPDATE employeeSalary SET baseSalary = ?, houseRent = ?, medical = ?, noOfChild = ?, receivedDate = ? WHERE employeeID = ?";
         } else {
+            //insert query if there is no entry of the employee in salary table
             query = "INSERT INTO employeeSalary (baseSalary, houseRent, medical, noOfChild, receivedDate, employeeID) VALUES (?, ?, ?, ?, ?, ?)";
         }
 

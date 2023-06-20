@@ -31,6 +31,7 @@ public class ResultCRUD {
         ArrayList<String> allSubjects = controller.allSubjects(Controller.getRequiredID());
 
         if (!r.next()) {
+            //applying insert query if there is no entry of this student's result in the database
             if (StudentResultController.getSelectedExam() == 1) {
                 query = "INSERT INTO resultinfo_HalfYearly (ID) VALUES (?)";
             } else {
@@ -41,6 +42,7 @@ public class ResultCRUD {
             statement.executeUpdate();
         }
 
+        //update query to update the current result of a student
         if (StudentResultController.getSelectedExam() == 1) {
             for (int i = 0; i < allSubjects.size(); i++) {
                 query = "UPDATE resultinfo_HalfYearly SET " + allSubjects.get(i) + " = ? WHERE ID = ?";
@@ -69,6 +71,7 @@ public class ResultCRUD {
     }
 
     public void resultAlgoCrud(int halfYearlyWeight, int yearFinalWeight, String priority) throws SQLException {
+        //setting an algorithm to calculate the rank of students
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 

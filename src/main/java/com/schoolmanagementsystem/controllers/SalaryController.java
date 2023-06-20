@@ -93,6 +93,7 @@ public class SalaryController extends Controller implements Initializable {
         SalaryController controller = fxmlLoader.getController();
 
         if (!SalaryController.updateFlag) {
+            //in case of displaying the data, input fields will be invisible
             controller.medicalInput.setVisible(false);
             controller.medicalInput.setManaged(false);
             controller.childInput.setVisible(false);
@@ -106,6 +107,7 @@ public class SalaryController extends Controller implements Initializable {
             controller.invalid.setVisible(false);
             controller.invalid.setManaged(false);
         } else {
+            //in case of updating the data, input fields will be visible and labels will be invisible
             controller.medical.setVisible(false);
             controller.medical.setManaged(false);
             controller.education.setVisible(false);
@@ -121,6 +123,7 @@ public class SalaryController extends Controller implements Initializable {
         }
 
         if (!Objects.equals(loginController.getLoggedInPerson(), "Admin")) {
+            //update option is available only for admin
             controller.update.setVisible(false);
         }
 
@@ -142,7 +145,7 @@ public class SalaryController extends Controller implements Initializable {
         ResultSet r = statement.executeQuery();
 
         if (r.next()) {
-
+            //fetching the previous data of salary from database
             if (String.valueOf(r.getInt("baseSalary")) != null) {
                 base = r.getInt("baseSalary");
             }
@@ -165,6 +168,8 @@ public class SalaryController extends Controller implements Initializable {
             int rentValue = (int) (base * percentageOfRent) / 100;
 
             if (!SalaryController.updateFlag) {
+                //update flag is false
+                //displaying the fetched data from database
                 controller.update.setText("Update");
 
                 controller.rentPercentage.setText(r.getInt("houseRent") + "% of Base Salary");
@@ -194,6 +199,8 @@ public class SalaryController extends Controller implements Initializable {
                 controller.receivedDate.setText("Last received date : " + String.valueOf(r.getDate("receivedDate")));
 
             } else {
+                //update flag is true.
+                //displaying the input fields with the fetched data as default value
                 controller.update.setText("Apply");
                 controller.rentPercentage.setText("select percentage");
                 controller.noOfChild.setText("select children");
@@ -237,15 +244,18 @@ public class SalaryController extends Controller implements Initializable {
             SalaryController.applyFlag = false;
             handleSalaryPage(event);
         } else {
+            //check whether any field is empty or not because empty field cannot be submitted
             if (baseSalaryInput.getText().isEmpty() || rentInput.getText().isEmpty() || medicalInput.getText().isEmpty()
                     || childInput.getValue() == null || dateInput.getValue() == null) {
                 invalid.setVisible(true);
                 invalid.setManaged(true);
             } else if (validateNum(baseSalaryInput.getText()) || validateNum(rentInput.getText())
                     || validateNum(medicalInput.getText()) || validateDate(dateInput)) {
+                //check whether the input is a valid number or not
                 invalid.setVisible(true);
                 invalid.setManaged(true);
             } else {
+                //update the salary
                 SalaryController.updateFlag = false;
                 SalaryController.applyFlag = true;
 
@@ -283,12 +293,17 @@ public class SalaryController extends Controller implements Initializable {
         SalaryController.applyFlag = false;
 
         if (Objects.equals(loginController.getLoggedInPerson(), "Teacher")) {
+            //the logged in person is a teacher. navigate to the teacher's profile page
             TeacherProfileController controller = new TeacherProfileController();
             controller.handleTeacherProfile(event, loginController.getLoggedInID());
         } else if (Objects.equals(loginController.getLoggedInPerson(), "Staff")) {
+            //the logged in person is a staff. navigate to the staff profile page
             StaffProfileController controller = new StaffProfileController();
             controller.handleStaffProfile(event, loginController.getLoggedInID());
         } else {
+            //the logged in person is admin.
+            //admin can see all the user's profile.
+            //so check the selected profile belong to which type of user
             if (Objects.equals(Controller.requiredType, "Teacher")) {
                 TeacherProfileController controller = new TeacherProfileController();
                 controller.handleTeacherProfile(event, Controller.requiredID);

@@ -33,16 +33,23 @@ public class NoticeController extends Controller implements Initializable {
     private static boolean cancelFlag;
 
     public Label noticeLabel;
+
     public TextField title;
+
     public Label titleLabel;
 
     public Label date;
+
     public Button back;
+
     public TextArea noticeInput;
 
     public Button next;
+
     public Label edit;
+
     public Label add;
+
     public Button done;
 
     public static int getCurrentNotice() {
@@ -68,6 +75,7 @@ public class NoticeController extends Controller implements Initializable {
         NoticeController controller = fxmlLoader.getController();
 
         if (!Objects.equals(loginController.getLoggedInPerson(), "Admin")) {
+            //add and edit notice options will be available only for admin
             controller.add.setVisible(false);
             controller.edit.setVisible(false);
             controller.done.setVisible(false);
@@ -79,9 +87,11 @@ public class NoticeController extends Controller implements Initializable {
         String query;
         PreparedStatement statement;
         if (NoticeController.currentNotice == 0) {
+            //fetching the last notice from database
             query = "SELECT * FROM notice ORDER BY noticeID DESC LIMIT 1;";
             statement = con.prepareStatement(query);
         } else {
+            //fetching the current notice from database
             query = "SELECT * FROM notice WHERE noticeID = ?";
             statement = con.prepareStatement(query);
             statement.setInt(1, NoticeController.currentNotice);
@@ -99,6 +109,7 @@ public class NoticeController extends Controller implements Initializable {
             }
         }
 
+        //input fields will be visible while adding or updating notice
         controller.title.setVisible(false);
         controller.noticeInput.setVisible(false);
         controller.title.setManaged(false);
@@ -116,16 +127,6 @@ public class NoticeController extends Controller implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        noticeLabel.setMaxWidth(730);
-        noticeLabel.setWrapText(true);
-        title.setVisible(false);
-        title.setManaged(false);
-        noticeInput.setVisible(false);
-        noticeInput.setManaged(false);
-    }
-
     @FXML
     void handleAdd(MouseEvent event) throws IOException, SQLException {
 
@@ -134,7 +135,7 @@ public class NoticeController extends Controller implements Initializable {
             handleNoticePage(event);
             return;
         }
-
+        //labels will be invisible and text fields will be visible while adding a new notice
         titleLabel.setVisible(false);
         titleLabel.setManaged(false);
         noticeLabel.setVisible(false);
@@ -154,10 +155,16 @@ public class NoticeController extends Controller implements Initializable {
         NoticeController.cancelFlag = true;
 
     }
-
+    //handleBack and handleNext functions will handle page change
     @FXML
     void handleBack(MouseEvent event) throws SQLException, IOException {
         NoticeController.currentNotice -= 1;
+        handleNoticePage(event);
+    }
+
+    @FXML
+    void handleNext(MouseEvent event) throws SQLException, IOException {
+        NoticeController.currentNotice += 1;
         handleNoticePage(event);
     }
 
@@ -169,7 +176,7 @@ public class NoticeController extends Controller implements Initializable {
             handleNoticePage(event);
             return;
         }
-
+        //labels will be invisible and text fields will be visible while adding a new notice
         titleLabel.setVisible(false);
         titleLabel.setManaged(false);
         noticeLabel.setVisible(false);
@@ -194,6 +201,7 @@ public class NoticeController extends Controller implements Initializable {
 
         ResultSet r = statement.executeQuery();
 
+        //while updating a notice, the previous data stored in database will be used as default value
         if (r.next()) {
             title.setText(r.getString("title"));
             noticeInput.setText(r.getString("description"));
@@ -214,12 +222,6 @@ public class NoticeController extends Controller implements Initializable {
     }
 
     @FXML
-    void handleNext(MouseEvent event) throws SQLException, IOException {
-        NoticeController.currentNotice += 1;
-        handleNoticePage(event);
-    }
-
-    @FXML
     void handleSpecial(MouseEvent event) throws SQLException, IOException {
         String text = done.getText();
         NoticeCRUD crud = new NoticeCRUD();
@@ -227,16 +229,20 @@ public class NoticeController extends Controller implements Initializable {
         Notice notice;
 
         if (Objects.equals(text, "DONE")) {
+            //confirming editing or adding a notice
             notice = new Notice(title.getText(), noticeInput.getText());
             if (NoticeController.updateFlag) {
+                //update notice
                 NoticeController.updateFlag = false;
                 crud.updateNotice(notice);
             } else {
+                //add notice
                 crud.addNotice(notice);
                 NoticeController.lastNotice += 1;
                 NoticeController.currentNotice = NoticeController.lastNotice;
             }
         } else {
+            //deleting current notice
             if (handleAlert("This notice will be deleted permanently", "Are you sure to proceed?")) {
                 crud.deleteNotice();
                 NoticeController.lastNotice -= 1;
@@ -244,5 +250,15 @@ public class NoticeController extends Controller implements Initializable {
             }
         }
         handleNoticePage(event);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        noticeLabel.setMaxWidth(730);
+        noticeLabel.setWrapText(true);
+        title.setVisible(false);
+        title.setManaged(false);
+        noticeInput.setVisible(false);
+        noticeInput.setManaged(false);
     }
 }

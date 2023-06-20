@@ -47,9 +47,7 @@ public class NoticeCRUD {
 
         Reader reader = new StringReader(notice.getNoticeDesc());
 
-        // statement.setInt(2, emp.getId());
         statement.setString(1, notice.getNoticeTitle());
-        // statement.setString(2, notice.getNoticeDesc());
         statement.setCharacterStream(2, reader, notice.getNoticeDesc().length());
         statement.setInt(3, NoticeController.getCurrentNotice());
 

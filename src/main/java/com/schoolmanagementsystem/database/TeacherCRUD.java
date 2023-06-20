@@ -62,8 +62,10 @@ public class TeacherCRUD {
         String updateQuery;
 
         if (imgPath != null) {
+            //profile picture is also updated
             updateQuery = "UPDATE employeeInfo SET name = ?, profession = ?, fatherName = ?, motherName = ?, address = ?, dateOfBirth = ?, gender = ?, contactNumber = ?, religion = ?, subject = ?, profilePicture = ? WHERE employeeID = ?";
         } else {
+            //profile picture is not updated
             updateQuery = "UPDATE employeeInfo SET name = ?, profession = ?, fatherName = ?, motherName = ?, address = ?, dateOfBirth = ?, gender = ?, contactNumber = ?, religion = ?, subject = ? WHERE employeeID = ?";
         }
         PreparedStatement statement = con.prepareStatement(updateQuery);

@@ -37,6 +37,7 @@ public class FeeController extends Controller {
 
     @FXML
     private Label feeLabel;
+
     @FXML
     private Button cross;
 
@@ -161,6 +162,7 @@ public class FeeController extends Controller {
         FeeController.applyFlag = true;
         FeeController.updateFlag = false;
 
+        //input fields will be visible while updating the fee
         controller.invalid.setVisible(false);
         controller.invalid.setVisible(false);
         controller.feeInput.setVisible(false);
@@ -171,6 +173,7 @@ public class FeeController extends Controller {
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
+        //fetching the fee information from database and displaying them
         String query = "SELECT * FROM studentFees WHERE studentID = ?";
         PreparedStatement statement = con.prepareStatement(query);
 
@@ -180,6 +183,14 @@ public class FeeController extends Controller {
         if (r.next()) {
             controller.feeLabel.setText(String.valueOf(r.getInt("feeAmount")));
             controller.dateLabel.setText(String.valueOf(r.getDate("paymentDate")));
+        }
+
+        try{
+            r.close();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

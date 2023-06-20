@@ -18,6 +18,9 @@ public class ChooseProfileController extends Controller implements Initializable
     @FXML
     private Button self;
 
+    //Controller.requiredID store the id of the user whose profile will be displayed
+    //AllMembersController.AllUserFlag will be used to load the page
+
     public void handleSelf(ActionEvent actionEvent) throws IOException, SQLException {
         Controller.requiredID = loginController.getLoggedInID();
         Controller.allUserFlag = false;

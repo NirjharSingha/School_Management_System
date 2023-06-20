@@ -120,6 +120,7 @@ public abstract class Controller {
             String m1 = "You are about to log out.";
             String m2 = "Your current session will be over. \nFor further use you need to log in again.";
             if (handleAlert(m1, m2)) {
+                //erasing all the use history when one user is logging out
                 loginController.setLoggedInPerson(null);
                 loginController.setLoggedInID(0);
                 Controller.requiredID = 0;
@@ -185,6 +186,7 @@ public abstract class Controller {
 
     @FXML
     void handleProfile(ActionEvent actionEvent) throws IOException, SQLException {
+        //checking whether the user is a teacher, staff or admin himself
         if (loginController.getLoggedInPerson() == null) {
             handleAlert("Alert", "Log in first to view your profile.");
         } else if (loginController.getLoggedInPerson().equals("Teacher")) {
@@ -201,9 +203,11 @@ public abstract class Controller {
     }
 
     public FXMLLoader loadPage(String buttonType, String str, Event event) throws IOException {
+        //helper function to load different pages
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(str));
         Parent root = fxmlLoader.load();
 
+        //the buttonType is used here to load the page
         if (Objects.equals(buttonType, "menuButton")) {
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         } else if (Objects.equals(buttonType, "button")) {
@@ -217,11 +221,11 @@ public abstract class Controller {
         Controller controller = fxmlLoader.getController();
 
         if (Objects.equals(loginController.getLoggedInPerson(), "Teacher")) {
+            //the features that are not accessible for the teacher will be invisible
             controller.reg.setVisible(false);
             controller.reg.setManaged(false);
 
             controller.login.setText("Log out");
-//            controller.vbox.setStyle("-fx-background-color:  #720D05;");
             VBox.setMargin(controller.home, new Insets(10, 25, 10, 61));
             VBox.setMargin(controller.profile, new Insets(10, 25, 10, 61));
             VBox.setMargin(controller.login, new Insets(10, 25, 10, 61));
@@ -233,6 +237,7 @@ public abstract class Controller {
         }
 
         if (Objects.equals(loginController.getLoggedInPerson(), "Staff")) {
+            //the features that are not accessible for the staff will be invisible
             controller.reg.setVisible(false);
             controller.reg.setManaged(false);
 
@@ -243,7 +248,6 @@ public abstract class Controller {
             controller.routine.setManaged(false);
 
             controller.login.setText("Log out");
-//            controller.vbox.setStyle("-fx-background-color:  #044C05;");
             VBox.setMargin(controller.home, new Insets(16, 25, 16, 61));
             VBox.setMargin(controller.profile, new Insets(16, 25, 16, 61));
             VBox.setMargin(controller.login, new Insets(16, 25, 16, 61));
@@ -265,6 +269,7 @@ public abstract class Controller {
     }
 
     public boolean validateNum(String str) {
+        //this function will validate whether a number is valid or not
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) >= '0' && str.charAt(i) <= '9') {
                 continue;
@@ -276,6 +281,7 @@ public abstract class Controller {
     }
 
     public boolean validateDate(DatePicker str) {
+        //this function will validate whether a date is valid or not
         LocalDate selectedDate = str.getValue();
 
         try {
@@ -291,11 +297,12 @@ public abstract class Controller {
         return false;
     }
 
-    public boolean handleAlert(String message1, String message2) {
+    public boolean handleAlert(String head, String content) {
+        //this is a helper function that generates alert message when necessary
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Alert");
-        alert.setHeaderText(message1);
-        alert.setContentText(message2);
+        alert.setHeaderText(head);
+        alert.setContentText(content);
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             return true;
@@ -305,6 +312,9 @@ public abstract class Controller {
     }
 
     public Pair<String, String> passwordInputAlert() {
+        //this function will make an alert message where will be a choice box and password input field
+        //in log in page if one clicks on the hyperlink to navigate to the register page directly, then this alert message will be visible.
+        //the user needs to select his role and give admin password for security
 
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Verification");
@@ -339,6 +349,7 @@ public abstract class Controller {
     }
 
     public String uploadImage(Stage stage, ImageView Img, Button imgButton) {
+        //helper function to upload image
         String imagePath = null;
         FileChooser fileChooser = new FileChooser();
 

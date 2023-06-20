@@ -27,8 +27,10 @@ import java.util.ResourceBundle;
 public class ClubFormController extends Controller implements Initializable {
 
     private static boolean confirmFlag;
+
     @FXML
     private GridPane gridPane;
+
     @FXML
     private TextField assistantGS;
 
@@ -87,6 +89,7 @@ public class ClubFormController extends Controller implements Initializable {
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
+        //fetching the data from database
         String query = "SELECT clubName,fund FROM club WHERE clubID = ?";
         PreparedStatement statement = con.prepareStatement(query);
         statement.setInt(1, ClubController.getSelectedClub() + 1);
@@ -104,6 +107,7 @@ public class ClubFormController extends Controller implements Initializable {
         Club club = new Club();
         ArrayList<Pair<String, Integer>> executivePanel = club.ecPanel();
         for (int i = 0; i < executivePanel.size(); i++) {
+            //displaying the previously set data from database as default values in the input fields
             if (executivePanel.get(i).getValue() != 0) {
                 if (i == 0)
                     controller.president.setText(String.valueOf(executivePanel.get(i).getValue()));
@@ -132,6 +136,7 @@ public class ClubFormController extends Controller implements Initializable {
     }
 
     public boolean fetchData(int id) throws SQLException {
+        //helper function to validate whether an id exists in the database or not
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
@@ -174,14 +179,17 @@ public class ClubFormController extends Controller implements Initializable {
         ClubFormController.confirmFlag = true;
 
         if (clubName.getText().isEmpty()) {
+            //club name is empty
             handleAlert("Club Name cannot be empty", "");
             ClubFormController.confirmFlag = false;
         } else {
             if (!president.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(president.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(president.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -189,10 +197,12 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!vicePresident.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(vicePresident.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(vicePresident.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -200,10 +210,12 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!generalSecretary.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(generalSecretary.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(generalSecretary.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -211,20 +223,24 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!treasurer.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(treasurer.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(treasurer.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
                     }
                 }
             } else if (!assistantGS.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(assistantGS.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(assistantGS.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -232,10 +248,12 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!publicRelations.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(publicRelations.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(publicRelations.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -243,10 +261,12 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!secretary.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(secretary.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(secretary.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -254,10 +274,12 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!executive_1.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(executive_1.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(executive_1.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -265,10 +287,12 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!executive_2.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(executive_2.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(executive_2.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -276,10 +300,12 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!executive_3.getText().isEmpty()) {
+                //id is not a number, so invalid id
                 if (validateNum(executive_3.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     if (fetchData(Integer.parseInt(executive_3.getText()))) {
                         handleAlert("This id doesn't exist", "");
                         ClubFormController.confirmFlag = false;
@@ -287,11 +313,12 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!clubModerator.getText().isEmpty()) {
-
+                //id is not a number, so invalid id
                 if (validateNum(clubModerator.getText())) {
                     handleAlert("ID must be a number", "");
                     ClubFormController.confirmFlag = false;
                 } else {
+                    //validate whether an id exists in the database or not
                     query = "SELECT * FROM loginInfo where ID = ?";
                     statement = con.prepareStatement(query);
                     statement.setInt(1, Integer.parseInt(clubModerator.getText()));
@@ -309,6 +336,7 @@ public class ClubFormController extends Controller implements Initializable {
                 }
             }
             if (!fund.getText().isEmpty()) {
+                //fund is not a number, so invalid fund amount
                 if (validateNum(fund.getText())) {
                     handleAlert("fund must be a number", "");
                     ClubFormController.confirmFlag = false;
@@ -335,6 +363,7 @@ public class ClubFormController extends Controller implements Initializable {
                 fundAmount);
 
         if (ClubFormController.confirmFlag) {
+            //all ids are valid, ready to proceed
             if (ClubController.isAddClubFlag()) {
                 String query2 = "SELECT * FROM club WHERE clubName = ?";
                 PreparedStatement statement2 = con.prepareStatement(query2);
@@ -342,6 +371,7 @@ public class ClubFormController extends Controller implements Initializable {
                 ResultSet r1 = statement2.executeQuery();
 
                 if (r1.next()) {
+                    //duplicate club name, cannot proceed
                     ClubFormController.confirmFlag = false;
                     handleAlert("This club already exists", "");
                 }
@@ -356,12 +386,15 @@ public class ClubFormController extends Controller implements Initializable {
         }
 
         if (ClubFormController.confirmFlag) {
+            //all entries are valid, ready to add or update club
             ClubCRUD crud = new ClubCRUD();
             crud.addOrUpdateClub(club);
             String message;
             if (ClubController.isAddClubFlag()) {
+                //adding new club
                 message = "Club is added successfully";
             } else {
+                //updating the selected club
                 message = "Club is updated successfully";
             }
             ClubController clubController = new ClubController();
@@ -372,6 +405,7 @@ public class ClubFormController extends Controller implements Initializable {
             }
         }
 
+        //closing the database connections
         try{
             if(r != null) {
                 r.close();

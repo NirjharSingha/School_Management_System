@@ -104,6 +104,7 @@ public class StudentProfileController extends Controller {
         StudentProfileController controller = fxmlLoader.getController();
 
         if (!Objects.equals(loginController.getLoggedInPerson(), "Admin")) {
+            //update and delete feature will be accessible only by admin, not by other users
             controller.updateIcon.setVisible(false);
             controller.updateIcon.setManaged(false);
             controller.update.setVisible(false);
@@ -127,6 +128,7 @@ public class StudentProfileController extends Controller {
         byte[] imageData;
 
         if (r.next()) {
+            //displaying the data fetched from the database
             controller.sname.setText(r.getString("name").toUpperCase());
             controller.cls.setText(String.valueOf(r.getInt("class")));
             controller.roll.setText(String.valueOf(r.getInt("roll")));
@@ -199,6 +201,7 @@ public class StudentProfileController extends Controller {
 
     @FXML
     void handleCross(ActionEvent event) throws SQLException, IOException {
+        //the cross button will navigate to the previous page
         if(Controller.allUserFlag) {
             AllMembersController.setAllUserFlag(true);
             AllMembersController controller = new AllMembersController();

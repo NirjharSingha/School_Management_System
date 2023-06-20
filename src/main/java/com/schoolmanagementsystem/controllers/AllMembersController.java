@@ -152,6 +152,26 @@ public class AllMembersController extends Controller implements Initializable {
 
     private static String selectedSection;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
+
+    public static int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public static void setCurrentIndex(int currentIndex) {
+        AllMembersController.currentIndex = currentIndex;
+    }
+
+    public static String getCurrentList() {
+        return currentList;
+    }
+
+    public static void setCurrentList(String currentList) {
+        AllMembersController.currentList = currentList;
+    }
+
     public static int getSelectedClass() {
         return selectedClass;
     }
@@ -181,6 +201,8 @@ public class AllMembersController extends Controller implements Initializable {
         handleHome(event);
     }
 
+    //handlePrevious and handleNext function will handle the page change
+    //AllMembersController.currentIndex will be used to verify which page should be displayed
     @FXML
     void handleNext(ActionEvent event) throws SQLException, IOException {
         AllMembersController.currentIndex += 15;
@@ -195,6 +217,7 @@ public class AllMembersController extends Controller implements Initializable {
         handleAllMemberPage(event);
     }
 
+    //handleStudentList, handleTeacherList and handleStaffList will verify which type of user is selected
     @FXML
     void handleStudentList(Event event) throws SQLException, IOException {
         AllMembersController.currentList = "Student";
@@ -219,27 +242,8 @@ public class AllMembersController extends Controller implements Initializable {
         handleAllMemberPage(event);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
-
-    public static int getCurrentIndex() {
-        return currentIndex;
-    }
-
-    public static void setCurrentIndex(int currentIndex) {
-        AllMembersController.currentIndex = currentIndex;
-    }
-
-    public static String getCurrentList() {
-        return currentList;
-    }
-
-    public static void setCurrentList(String currentList) {
-        AllMembersController.currentList = currentList;
-    }
-
     public void handleAllMemberPage(Event event) throws IOException, SQLException {
+        //the button type will be used to load the page
         String buttonType;
         if (AllMembersController.allUserFlag) {
             buttonType = "button";
@@ -249,6 +253,7 @@ public class AllMembersController extends Controller implements Initializable {
         FXMLLoader fxmlLoader = loadPage(buttonType, "/com/schoolmanagementsystem/fxml_Files/allMembers.fxml", event);
         AllMembersController controller = fxmlLoader.getController();
 
+        //neither student, nor teacher nor staff, nothing is selected to display
         if (AllMembersController.currentList == null) {
             controller.scrollPane.setVisible(false);
             controller.hbox.setVisible(false);
@@ -259,6 +264,7 @@ public class AllMembersController extends Controller implements Initializable {
             return;
         }
 
+        //student is selected. so the list of students will be displayed
         if (AllMembersController.currentList.equals("Student")) {
             controller.select.setText("STUDENT");
             if(AllMembersController.selectedClass != 0) {
@@ -269,6 +275,7 @@ public class AllMembersController extends Controller implements Initializable {
             }
         }
 
+        //staff is selected. so the list of staffs will be displayed
         if (AllMembersController.currentList.equals("Staff")) {
             controller.select.setText("STAFF");
             controller.id.setText("Staff ID");
@@ -277,6 +284,7 @@ public class AllMembersController extends Controller implements Initializable {
             controller.section.setVisible(false);
         }
 
+        //teacher is selected. so the list of teachers will be displayed
         if (AllMembersController.currentList.equals("Teacher")) {
             controller.select.setText("TEACHER");
             controller.id.setText("Teacher ID");
@@ -295,17 +303,21 @@ public class AllMembersController extends Controller implements Initializable {
 
         if (Objects.equals(AllMembersController.currentList, "Student")) {
             if(AllMembersController.selectedClass == 0 && AllMembersController.selectedSection == null) {
+                //if class or section is not selected then fetch data of all students irrespective of class or section
                 query = "SELECT studentID, name FROM studentInfo";
                 statement = con.prepareStatement(query);
             } else if(AllMembersController.selectedClass != 0 && AllMembersController.selectedSection == null) {
+                //if only class is selected then fetch data of the students of that class
                 query = "SELECT studentID, name FROM studentInfo WHERE class = ?";
                 statement = con.prepareStatement(query);
                 statement.setInt(1, AllMembersController.selectedClass);
             } else if(AllMembersController.selectedClass == 0) {
+                //if only section is selected then fetch data of the students of that section
                 query = "SELECT studentID, name FROM studentInfo WHERE section = ?";
                 statement = con.prepareStatement(query);
                 statement.setString(1, AllMembersController.selectedSection);
             } else {
+                //if both class and section are selected then fetch data of the students of that class and that section
                 query = "SELECT studentID, name FROM studentInfo WHERE class = ? AND section = ?";
                 statement = con.prepareStatement(query);
                 statement.setInt(1, AllMembersController.selectedClass);
@@ -319,6 +331,7 @@ public class AllMembersController extends Controller implements Initializable {
                 allMember.add(p);
             }
         } else {
+            //if teacher is selected then userType will be teacher, if staff is selected then userType will be staff
             query = "SELECT ID FROM loginInfo WHERE userType = ?";
             statement = con.prepareStatement(query);
             statement.setString(1, AllMembersController.currentList);
@@ -338,6 +351,7 @@ public class AllMembersController extends Controller implements Initializable {
             }
         }
 
+        //display the fetched data on the window
         for (int i = AllMembersController.currentIndex; i < AllMembersController.currentIndex + 15; i++) {
             if (i == allMember.size()) {
                 break;
@@ -389,13 +403,16 @@ public class AllMembersController extends Controller implements Initializable {
             }
         }
 
+        //there is no previous page, so the previous button will be invisible
         if (AllMembersController.currentIndex == 0) {
             controller.previous.setVisible(false);
         }
+        //there is no next page, so the next button will be invisible
         if (AllMembersController.currentIndex + 15 >= allMember.size()) {
             controller.next.setVisible(false);
         }
 
+        //closing the database connections
         try{
             r.close();
             if(resultSet != null) {
@@ -411,6 +428,7 @@ public class AllMembersController extends Controller implements Initializable {
         }
     }
 
+    //handleLink functions will be used to navigate to that particular user's profile
     @FXML
     void handleLink_1(ActionEvent event) throws SQLException, IOException {
         Controller.requiredID = Integer.parseInt(id_1.getText());
@@ -503,6 +521,7 @@ public class AllMembersController extends Controller implements Initializable {
     }
 
     public void loadProfile(ActionEvent event) throws SQLException, IOException {
+        //this function will load the profile of the selected user
         if(AllMembersController.currentList.equals("Student")) {
             StudentProfileController cont = new StudentProfileController();
             cont.handleStudentProfile(event, Controller.requiredID);
@@ -517,6 +536,8 @@ public class AllMembersController extends Controller implements Initializable {
         }
     }
 
+    //handleClass and handleSection functions will update the selected class and sections accordingly
+    //AllMembersController.currentIndex is set to 0 because the data will be displayed from page 1
     @FXML
     void handleClassNone(ActionEvent event) throws SQLException, IOException {
         AllMembersController.selectedClass = 0;

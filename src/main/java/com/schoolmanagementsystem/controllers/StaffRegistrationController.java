@@ -92,7 +92,7 @@ public class StaffRegistrationController extends Controller implements Initializ
     }
 
     public void submitHandler(ActionEvent event) throws SQLException, IOException {
-
+        //check whether any field is empty or not. because form cannot be submitted with empty field
         if (religion.getText().isEmpty() || ename.getText().isEmpty() || fname.getText().isEmpty()
                 || mname.getText().isEmpty() || password.getText().isEmpty() || contact.getText().isEmpty()
                 || address.getText().isEmpty() || designation.getText().isEmpty()) {
@@ -102,9 +102,11 @@ public class StaffRegistrationController extends Controller implements Initializ
             wrongInput.setText("Incorrect or empty Input. Give correct information");
             cross.setVisible(true);
         } else if (validateNum(contact.getText()) || contact.getText().length() != 11 || validateDate(dob)) {
+            //check whether contact number is an 11-digit number or not and date of birth is a valid date or not
             wrongInput.setText("Incorrect or empty Input. Give correct information");
             cross.setVisible(true);
         } else if (!Controller.isUpdate && imgPath == null) {
+            //check profile picture is empty or not while registering
             wrongInput.setText("Incorrect or empty Input. Give correct information");
             cross.setVisible(true);
         } else {
@@ -115,11 +117,14 @@ public class StaffRegistrationController extends Controller implements Initializ
             int id;
 
             if (!Controller.isUpdate) {
+                //new registration
                 while (true) {
 
                     ConnectDatabase db = new ConnectDatabase();
                     Connection con = db.getCon();
 
+                    //the random id generator will generate a random id, check whether this id already exists in the
+                    //database or not and continue generating random ids until a unique id is generated
                     String query = "SELECT * FROM loginInfo WHERE ID = ?";
                     id = 1000 * year + rand.nextInt(900) + 100;
 
@@ -142,6 +147,7 @@ public class StaffRegistrationController extends Controller implements Initializ
 
                 }
             } else {
+                //updating old profile
                 id = Controller.requiredID;
             }
 
@@ -208,7 +214,7 @@ public class StaffRegistrationController extends Controller implements Initializ
     }
 
     public void updateHelp(Event event) throws IOException, SQLException {
-
+        //helper function to handle update profile
         Controller.isUpdate = true;
 
         FXMLLoader fxmlLoader = loadPage("label", "/com/schoolmanagementsystem/fxml_Files/staffRegistrationForm.fxml",
@@ -232,6 +238,8 @@ public class StaffRegistrationController extends Controller implements Initializ
         byte[] imageData;
 
         if (r.next()) {
+            //the previously stored data in database is used here as default value
+            //user will update only the required field. rest will be taken from previous entry in database
             controller.ename.setText(r.getString("name"));
             controller.marital.setValue("Unmarried");
             controller.fname.setText(r.getString("fatherName"));

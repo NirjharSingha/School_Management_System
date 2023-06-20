@@ -63,8 +63,10 @@ public class StaffCRUD {
         String updateQuery;
 
         if (imgPath != null) {
+            //profile picture is also updated
             updateQuery = "UPDATE employeeInfo SET name = ?, profession = ?, fatherName = ?, motherName = ?, address = ?, dateOfBirth = ?, gender = ?, contactNumber = ?, religion = ?, profilePicture = ? WHERE employeeID = ?";
         } else {
+            //profile picture is not updated
             updateQuery = "UPDATE employeeInfo SET name = ?, profession = ?, fatherName = ?, motherName = ?, address = ?, dateOfBirth = ?, gender = ?, contactNumber = ?, religion = ? WHERE employeeID = ?";
         }
         statement = con.prepareStatement(updateQuery);

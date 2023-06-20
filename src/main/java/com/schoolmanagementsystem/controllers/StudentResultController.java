@@ -211,6 +211,7 @@ public class StudentResultController extends Controller {
 
     @FXML
     void handleConfirm(ActionEvent event) throws SQLException, IOException {
+        //this function will update the marks of a student
         ArrayList<Integer> allMarks = new ArrayList<>();
         if (input_1.isVisible()) {
             if (input_1.getText().isEmpty()) {
@@ -421,6 +422,9 @@ public class StudentResultController extends Controller {
     }
 
     public ArrayList<String> allSubjects(int id) throws SQLException {
+        //for students of different classes, there are different subjects in curriculum
+        //this function will fetch the data of the subjects from database and display them accordingly
+
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
@@ -511,6 +515,7 @@ public class StudentResultController extends Controller {
 
     public void handleStudentResultPage(Event event) throws IOException, SQLException {
         String buttonType;
+        //the button type will be used to load the page
         if (StudentProfileController.isResultLabelFlag()) {
             buttonType = "button";
         } else {
@@ -522,6 +527,7 @@ public class StudentResultController extends Controller {
         if (!StudentResultController.editFlag) {
             controller.confirm.setVisible(false);
         }
+        //the text fields or input fields will be visible when user will edit the result
         controller.input_1.setVisible(false);
         controller.input_2.setVisible(false);
         controller.input_3.setVisible(false);
@@ -537,6 +543,7 @@ public class StudentResultController extends Controller {
         controller.input_13.setVisible(false);
 
         if (StudentResultController.selectedExam == 0) {
+            //no exam is selected to display the result
             return;
         }
 
@@ -548,6 +555,7 @@ public class StudentResultController extends Controller {
         ResultSet r;
         ArrayList<String> allSubjects = allSubjects(Controller.requiredID);
 
+        //displaying the list of subjects
         for (int i = 0; i < allSubjects.size(); i++) {
             if (i == 0) {
                 controller.sub_1.setText(allSubjects.get(i));
@@ -591,9 +599,11 @@ public class StudentResultController extends Controller {
         }
 
         if (StudentResultController.selectedExam == 1) {
+            //fetching marks of half-yearly exam
             query = "SELECT * FROM resultinfo_HalfYearly WHERE ID = ?";
             controller.selectExam.setText("Half Yearly");
         } else if (StudentResultController.selectedExam == 2) {
+            //fetching marks of year-final exam
             query = "SELECT * FROM resultinfo_YearFinal WHERE ID = ?";
             controller.selectExam.setText("Year Final");
         }
@@ -606,7 +616,10 @@ public class StudentResultController extends Controller {
         float averageGPA = 0;
 
         if (r.next()) {
+            //this student's marks are previously entered in  the database marks table
             if (!StudentResultController.editFlag) {
+                //editFlag is false. so the input fields will be invisible.
+                //only the fetched data of marks in different subjects will be displayed.
                 for (int i = 0; i < allSubjects.size(); i++) {
 
                     total += r.getInt(allSubjects.get(i));
@@ -671,6 +684,8 @@ public class StudentResultController extends Controller {
                 String formatted = df.format(averageGPA);
                 controller.avgGPA.setText(formatted);
             } else {
+                //editFlag is true. so the input fields will be visible.
+                //the fetched data of marks in different subjects will be used as default value in the input fields.
                 for (int i = 0; i < allSubjects.size(); i++) {
 
                     if (i == 0) {
@@ -729,6 +744,8 @@ public class StudentResultController extends Controller {
             }
         }
         if (!r.next() && StudentResultController.editFlag) {
+            //this student's marks are not previously entered in  the database marks table.
+            //so there will be no default value in the input fields.
             for (int i = 0; i < allSubjects.size(); i++) {
 
                 if (i == 0) {
@@ -776,6 +793,7 @@ public class StudentResultController extends Controller {
 
     @FXML
     void handleCrossButton(Event event) throws SQLException, IOException {
+        //the cross button will navigate to the previous page
         StudentResultController.editFlag = false;
         StudentResultController.selectedExam = 0;
         StudentResultController.studentClass = 0;

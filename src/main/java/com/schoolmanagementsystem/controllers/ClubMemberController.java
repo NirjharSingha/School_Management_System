@@ -128,10 +128,13 @@ public class ClubMemberController extends Controller implements Initializable {
 
     @FXML
     void handleCross(ActionEvent event) throws SQLException, IOException {
+        //the cross button will navigate to the previous page
         ClubController clubController = new ClubController();
         clubController.handleClubPage(event);
     }
 
+    //handlePrevious and handleNext function will handle the page change
+    //ClubMemberController.currentIndex will be used to verify which page should be displayed
     @FXML
     void handleNext(ActionEvent event) throws SQLException, IOException {
         ClubMemberController.currentIndex += 15;
@@ -150,7 +153,7 @@ public class ClubMemberController extends Controller implements Initializable {
 
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
-
+        //fetching the list of students who belong to the selected club from database
         String query = "SELECT clubName FROM club WHERE clubID = ?";
         PreparedStatement statement = con.prepareStatement(query);
         statement.setInt(1, ClubController.getSelectedClub() + 1);
@@ -164,6 +167,7 @@ public class ClubMemberController extends Controller implements Initializable {
 
         ArrayList<Integer> allMember = club.allMember();
         for (int i = ClubMemberController.currentIndex; i < ClubMemberController.currentIndex + 15; i++) {
+            //display the fetched data on the window
             if (i == allMember.size()) {
                 break;
             } else if (i == ClubMemberController.currentIndex) {
@@ -213,14 +217,16 @@ public class ClubMemberController extends Controller implements Initializable {
                 controller.name_15.setText(clubController.fetchData(allMember.get(i)));
             }
         }
-
+        //there is no previous page, so the previous button will be invisible
         if (ClubMemberController.currentIndex == 0) {
             controller.previous.setVisible(false);
         }
+        //there is no next page, so the next button will be invisible
         if (ClubMemberController.currentIndex + 15 >= allMember.size()) {
             controller.next.setVisible(false);
         }
 
+        //closing the database connections
         try{
             r.close();
             statement.close();

@@ -19,8 +19,10 @@ public class FeeCRUD {
         String query;
 
         if (r.next()) {
+            //if already have an entry in database, then update query
             query = "UPDATE studentFees SET feeAmount = ?, paymentDate = ? WHERE studentID = ?";
         } else {
+            //if no entry in database then insert query
             query = "INSERT INTO studentFees (feeAmount, paymentDate, studentID) VALUES (?, ?, ?)";
         }
 

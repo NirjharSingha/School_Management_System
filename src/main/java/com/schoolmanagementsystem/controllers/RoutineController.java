@@ -359,7 +359,7 @@ public class RoutineController extends Controller implements Initializable {
     }
 
     public void handleRoutinePage(Event event) throws IOException, SQLException {
-
+        //the button type will be used to load the page
         String buttonType;
 
         if (Controller.routineFlag) {
@@ -384,6 +384,7 @@ public class RoutineController extends Controller implements Initializable {
         }
 
         if (RoutineController.selectedSection == null || RoutineController.selectedClass == 0) {
+            //no class or section is selected to display the routine
             return;
         }
 
@@ -397,6 +398,7 @@ public class RoutineController extends Controller implements Initializable {
         }
 
         if (!Objects.equals(loginController.getLoggedInPerson(), "Admin")) {
+            //only admin can edit the routine
             controller.editButton.setVisible(false);
         }
 
@@ -409,6 +411,7 @@ public class RoutineController extends Controller implements Initializable {
         int i;
 
         if (!RoutineController.editFlag) {
+            //if the edit flag is false, then the labels will be visible and the input fields will be invisible.
             controller.subInput1.setVisible(false);
             controller.subInput1.setManaged(false);
             controller.subInput2.setVisible(false);
@@ -519,6 +522,7 @@ public class RoutineController extends Controller implements Initializable {
                 ResultSet r = statement.executeQuery();
 
                 if (r.next()) {
+                    //displaying the routine fetched from the database
                     if (i == 1) {
                         controller.sub1.setText(r.getString("subject"));
                         controller.teacher1.setText(r.getString("teacher"));
@@ -606,6 +610,8 @@ public class RoutineController extends Controller implements Initializable {
             }
 
         } else {
+            //the edit flag is true, so the labels will be invisible, input fields will be visible
+            //with the previous value of the database as default
             controller.sub1.setVisible(false);
             controller.sub1.setManaged(false);
             controller.sub2.setVisible(false);
@@ -716,6 +722,7 @@ public class RoutineController extends Controller implements Initializable {
                 ResultSet r = statement.executeQuery();
 
                 if (r.next()) {
+                    //setting the previous value of database as default
                     if (i == 1) {
                         controller.subInput1.setText(r.getString("subject"));
                         controller.teacherInput1.setText(r.getString("teacher"));
@@ -812,23 +819,21 @@ public class RoutineController extends Controller implements Initializable {
     }
 
     @FXML
-    void handleClass(Event event) {
-
-    }
-
-    @FXML
     void handleEdit(Event event) throws IOException, SQLException {
 
         if (!RoutineController.editFlag) {
+            //input field will be visible to edit the routine
             RoutineController.editFlag = true;
             RoutineController.applyFlag = false;
         } else {
+            //changes in the routine will be applied
             RoutineController.editFlag = false;
             RoutineController.applyFlag = true;
 
             String[] sub = new String[26];
             String[] teacher = new String[26];
-
+            //updated routine is stored in an array.
+            //the array will be used to update the database
             sub[1] = (subInput1.getText().isEmpty() ? "" : subInput1.getText());
             teacher[1] = (teacherInput1.getText().isEmpty() ? "" : teacherInput1.getText());
             sub[2] = (subInput2.getText().isEmpty() ? "" : subInput2.getText());
@@ -887,10 +892,16 @@ public class RoutineController extends Controller implements Initializable {
     }
 
     @FXML
+    void handleClass(Event event) {
+
+    }
+
+    @FXML
     void handleSection(Event event) {
 
     }
 
+    //class and section functions will update the selected class and sections accordingly
     @FXML
     void class_1(ActionEvent event) throws IOException, SQLException {
         RoutineController.editFlag = false;

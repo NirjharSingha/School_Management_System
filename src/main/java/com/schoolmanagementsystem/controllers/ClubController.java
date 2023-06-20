@@ -35,56 +35,9 @@ public class ClubController extends Controller implements Initializable {
     private static boolean addMemberFlag;
 
     private static boolean deleteMemberFlag;
+
     @FXML
     private AnchorPane clubPage;
-
-    public static boolean isFundFlag() {
-        return fundFlag;
-    }
-
-    public static void setFundFlag(boolean fundFlag) {
-        ClubController.fundFlag = fundFlag;
-    }
-
-    public static boolean isAddMemberFlag() {
-        return addMemberFlag;
-    }
-
-    public static void setAddMemberFlag(boolean addMemberFlag) {
-        ClubController.addMemberFlag = addMemberFlag;
-    }
-
-    public static boolean isDeleteMemberFlag() {
-        return deleteMemberFlag;
-    }
-
-    public static void setDeleteMemberFlag(boolean deleteMemberFlag) {
-        ClubController.deleteMemberFlag = deleteMemberFlag;
-    }
-
-    public static int getSelectedClub() {
-        return selectedClub;
-    }
-
-    public static void setSelectedClub(int selectedClub) {
-        ClubController.selectedClub = selectedClub;
-    }
-
-    public static boolean isAddClubFlag() {
-        return addClubFlag;
-    }
-
-    public static void setAddClubFlag(boolean addClubFlag) {
-        ClubController.addClubFlag = addClubFlag;
-    }
-
-    public static boolean isUpdateClubFlag() {
-        return updateClubFlag;
-    }
-
-    public static void setUpdateClubFlag(boolean updateClubFlag) {
-        ClubController.updateClubFlag = updateClubFlag;
-    }
 
     @FXML
     private Button addMember;
@@ -179,6 +132,54 @@ public class ClubController extends Controller implements Initializable {
     @FXML
     private Label vicePresident;
 
+    public static boolean isFundFlag() {
+        return fundFlag;
+    }
+
+    public static void setFundFlag(boolean fundFlag) {
+        ClubController.fundFlag = fundFlag;
+    }
+
+    public static boolean isAddMemberFlag() {
+        return addMemberFlag;
+    }
+
+    public static void setAddMemberFlag(boolean addMemberFlag) {
+        ClubController.addMemberFlag = addMemberFlag;
+    }
+
+    public static boolean isDeleteMemberFlag() {
+        return deleteMemberFlag;
+    }
+
+    public static void setDeleteMemberFlag(boolean deleteMemberFlag) {
+        ClubController.deleteMemberFlag = deleteMemberFlag;
+    }
+
+    public static int getSelectedClub() {
+        return selectedClub;
+    }
+
+    public static void setSelectedClub(int selectedClub) {
+        ClubController.selectedClub = selectedClub;
+    }
+
+    public static boolean isAddClubFlag() {
+        return addClubFlag;
+    }
+
+    public static void setAddClubFlag(boolean addClubFlag) {
+        ClubController.addClubFlag = addClubFlag;
+    }
+
+    public static boolean isUpdateClubFlag() {
+        return updateClubFlag;
+    }
+
+    public static void setUpdateClubFlag(boolean updateClubFlag) {
+        ClubController.updateClubFlag = updateClubFlag;
+    }
+
     @FXML
     void handleAddClub(ActionEvent event) throws IOException, SQLException {
         ClubController.addClubFlag = true;
@@ -213,7 +214,7 @@ public class ClubController extends Controller implements Initializable {
         ClubFormController controller = new ClubFormController();
         controller.handleClubFormPage(event);
     }
-
+    //there are 12 club slots in the page. handleClub functions will handle those slots
     @FXML
     void handleClub_1(ActionEvent event) throws SQLException, IOException {
         ClubController.selectedClub = 0;
@@ -288,6 +289,7 @@ public class ClubController extends Controller implements Initializable {
 
     @FXML
     void handleDeleteClub(ActionEvent event) throws SQLException, IOException {
+        //deleting a club
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
@@ -308,6 +310,7 @@ public class ClubController extends Controller implements Initializable {
 
     @FXML
     void handleDeleteMember(ActionEvent event) throws IOException {
+        //deleting a member from the selected club
         ClubController.addMemberFlag = false;
         ClubController.fundFlag = false;
         ClubController.deleteMemberFlag = true;
@@ -352,6 +355,7 @@ public class ClubController extends Controller implements Initializable {
     }
 
     public String fetchData(int id) throws SQLException {
+        //helper function to fetch the names of those students who belong to a particular club
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
@@ -383,6 +387,7 @@ public class ClubController extends Controller implements Initializable {
         ClubController controller = fxmlLoader.getController();
 
         if (!Objects.equals(loginController.getLoggedInPerson(), "Admin")) {
+            //fund handling, adding, updating or deleting a club or club member will be available only for admin
             controller.addClub.setVisible(false);
             controller.fund.setVisible(false);
             controller.deleteClub.setVisible(false);
@@ -407,7 +412,7 @@ public class ClubController extends Controller implements Initializable {
 
         int size = records.size();
         int i = 0;
-
+        //displaying the club names in the slots of clubs
         if (i < size) {
             controller.club_1.setText(records.get(i++));
         } else {
@@ -507,7 +512,7 @@ public class ClubController extends Controller implements Initializable {
         }
 
         if (ClubController.selectedClub < records.size()) {
-
+            //fetching the data of the executive panel of the selected club
             String query2 = "SELECT * FROM club WHERE clubName = ?";
             PreparedStatement statement2 = con.prepareStatement(query2);
 
@@ -528,7 +533,7 @@ public class ClubController extends Controller implements Initializable {
                 if (resultSet.next()) {
                     controller.clubModerator.setText(resultSet.getString("name"));
                 }
-
+                //displaying the data of the executive panel of that club
                 controller.fundAmount.setText(r2.getString("fund"));
                 controller.president.setText(fetchData(r2.getInt("president")));
                 controller.vicePresident.setText(fetchData(r2.getInt("vicePresident")));

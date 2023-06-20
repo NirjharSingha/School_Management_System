@@ -42,11 +42,13 @@ public class ResultAlgorithmController extends Controller {
 
     @FXML
     void handleApply(ActionEvent event) throws SQLException {
+        //check whether any input field is empty or not
         if (halfYearlyInput.getText().isEmpty() || yearFinalInput.getText().isEmpty()) {
             invalid.setText("Empty input");
         } else if (ResultAlgorithmController.priority == null) {
             invalid.setText("Select priority");
         } else if (validateNum(halfYearlyInput.getText()) || validateNum(yearFinalInput.getText())) {
+            //check the validity of input
             invalid.setText("Weight must be integer");
         } else if (Integer.parseInt(halfYearlyInput.getText()) + Integer.parseInt(yearFinalInput.getText()) != 100) {
             invalid.setText("Sum is not 100");

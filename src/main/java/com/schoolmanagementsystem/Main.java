@@ -17,7 +17,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml_Files/home.fxml"));
             Parent root = fxmlLoader.load();
 
@@ -27,7 +26,9 @@ public class Main extends Application {
 
             String url = getClass().getResource("image/icon.png").toExternalForm();
             Image icon = new Image(url);
+            //adding icon in task bar
             stage.getIcons().add(icon);
+            //making the window non-resizable
             stage.setResizable(false);
             stage.show();
         } catch (IOException e) {

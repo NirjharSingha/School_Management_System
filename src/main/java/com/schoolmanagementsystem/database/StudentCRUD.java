@@ -39,8 +39,10 @@ public class StudentCRUD {
         String updateQuery;
 
         if (imgpath != null) {
+            //profile picture is also updated
             updateQuery = "UPDATE studentInfo SET name = ?, class = ?, roll = ?, section = ?, fatherName = ?, motherName = ?, address = ?, dateOfBirth = ?, gender = ?, contactNumber = ?, religion = ?, profilePicture = ? WHERE studentID = ?";
         } else {
+            //profile picture is not updated
             updateQuery = "UPDATE studentInfo SET name = ?, class = ?, roll = ?, section = ?, fatherName = ?, motherName = ?, address = ?, dateOfBirth = ?, gender = ?, contactNumber = ?, religion = ? WHERE studentID = ?";
         }
         statement = con.prepareStatement(updateQuery);
@@ -55,7 +57,7 @@ public class StudentCRUD {
     }
 
     public void crudHelper(Student st, String imgPath) throws SQLException, FileNotFoundException {
-
+        //helper function to add or update student
         java.sql.Date sqlDate = java.sql.Date.valueOf(st.getDateofbirth());
 
         // set values for the insert query

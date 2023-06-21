@@ -36,7 +36,7 @@
          <left>
             <VBox fx:id="vbox" prefHeight="620.0" prefWidth="234.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
                <children>
-                  <ImageView fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="icon" fitHeight="92.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/icon.png" />
                      </image>

@@ -33,6 +33,7 @@ public class StudentRegistrationController extends Controller implements Initial
     private Stage stage;
 
     private String imgPath;
+
     @FXML
     Button imgButton;
 
@@ -159,8 +160,8 @@ public class StudentRegistrationController extends Controller implements Initial
                 id = Controller.requiredID;
             }
 
-            String message1 = "You are about to register.";
-            String message2 = "Your id is " + id + "\nPlease remember this id for further access.";
+            String message1 = "Your id is " + id;
+            String message2 = "Please remember this id for further access.";
 
             if (!Controller.isUpdate) {
                 //new student register

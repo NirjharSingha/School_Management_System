@@ -33,9 +33,12 @@ import java.util.ResourceBundle;
 public class TeacherRegistrationController extends Controller implements Initializable {
 
     private String imgPath;
+
     private Stage stage;
+
     @FXML
     Button imgButton;
+
     @FXML
     private TextField address;
 
@@ -153,8 +156,8 @@ public class TeacherRegistrationController extends Controller implements Initial
                 id = Controller.requiredID;
             }
 
-            String message1 = "You are about to register.";
-            String message2 = "Your id is " + id + "\nPlease remember this id for further access.";
+            String message1 = "Your id is " + id;
+            String message2 = "Please remember this id for further access.";
 
             if (!Controller.isUpdate) {
                 //new teacher register

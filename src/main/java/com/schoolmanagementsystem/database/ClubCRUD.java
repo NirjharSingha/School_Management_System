@@ -9,23 +9,25 @@ import java.util.ArrayList;
 
 public class ClubCRUD {
 
-    public void addOrUpdateHelp(String ID, String query, String clubName) throws SQLException {
+    public void addOrUpdateHelp(String ID, String field, String clubName) throws SQLException {
         //helper function to add or update a club
         ConnectDatabase db = new ConnectDatabase();
         Connection con = db.getCon();
 
-        if (ID == null) {
-            return;
+        if(ID!=null) {
+            String query = "UPDATE club SET " + field + " = ? WHERE clubName = ?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setInt(1, Integer.parseInt(ID));
+            statement.setString(2, clubName);
+            statement.executeUpdate();
+        } else {
+            String query = "UPDATE club SET " + field + " = NULL WHERE clubName = ?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setString(1, clubName);
+            statement.executeUpdate();
         }
 
-        PreparedStatement statement = con.prepareStatement(query);
-
-        statement.setInt(1, Integer.parseInt(ID));
-        statement.setString(2, clubName);
-        statement.executeUpdate();
-
         try{
-            statement.close();
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,28 +53,17 @@ public class ClubCRUD {
             statement.executeUpdate();
         }
 
-        addOrUpdateHelp(club.getPresidentID(), "UPDATE club SET president = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getVicePresidentID(), "UPDATE club SET vicePresident = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getTreasurerID(), "UPDATE club SET treasurer = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getGeneralSecretaryID(), "UPDATE club SET generalSecretary = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getClubModeratorID(), "UPDATE club SET clubModerator = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getAssistantGSID(), "UPDATE club SET assistantGS = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getPublicRelationsID(), "UPDATE club SET publicRelations = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getSecretaryID(), "UPDATE club SET secretary = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getExecutive_1_ID(), "UPDATE club SET executive_1 = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getExecutive_2_ID(), "UPDATE club SET executive_2 = ? WHERE clubName = ?",
-                club.getNameOfClub());
-        addOrUpdateHelp(club.getExecutive_3_ID(), "UPDATE club SET executive_3 = ? WHERE clubName = ?",
-                club.getNameOfClub());
+        addOrUpdateHelp(club.getPresidentID(), "president", club.getNameOfClub());
+        addOrUpdateHelp(club.getVicePresidentID(), "vicePresident", club.getNameOfClub());
+        addOrUpdateHelp(club.getTreasurerID(), "treasurer", club.getNameOfClub());
+        addOrUpdateHelp(club.getGeneralSecretaryID(), "generalSecretary", club.getNameOfClub());
+        addOrUpdateHelp(club.getClubModeratorID(), "clubModerator", club.getNameOfClub());
+        addOrUpdateHelp(club.getAssistantGSID(), "assistantGS", club.getNameOfClub());
+        addOrUpdateHelp(club.getPublicRelationsID(), "publicRelations", club.getNameOfClub());
+        addOrUpdateHelp(club.getSecretaryID(), "secretary", club.getNameOfClub());
+        addOrUpdateHelp(club.getExecutive_1_ID(), "executive_1", club.getNameOfClub());
+        addOrUpdateHelp(club.getExecutive_2_ID(), "executive_2", club.getNameOfClub());
+        addOrUpdateHelp(club.getExecutive_3_ID(), "executive_3", club.getNameOfClub());
 
         if (club.getFundAmount() != null) {
             query = "UPDATE club SET fund = ? WHERE clubName = ?";

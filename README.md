@@ -95,3 +95,7 @@ java --module-path ./JavaFX_Runtime_Components --add-modules javafx.controls,jav
 In project base directory, there is a sub-folder named dist. In that folder, the jar file of the project(SchoolManagementSystem.jar) is present. Using the command stated above you can run the jar file. To run the jar file, some javaFX runtime components are needed. These components are already present inside dist/JavaFX_Runtime_Components sub-folder and added in the command that is stated above to run the jar file of the app.
 
 But before running the jar file, you need to create the databases and new MySQL user following the instructions stated above. Otherwise, the jar file won't get the access to the database.
+
+**If you want you can see the features of the app in the following demonstration video.**<br>
+**Link:**<br>
+[![Video Title](https://img.youtube.com/vi/zguh3vSNkH8/0.jpg)](https://www.youtube.com/watch?v=zguh3vSNkH8)

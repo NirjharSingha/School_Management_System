@@ -96,7 +96,6 @@ public class ClubCRUD {
         PreparedStatement alterStatement = con.prepareStatement(alterSql);
         delStatement.setString(1, str);
         delStatement.executeUpdate();
-        alterStatement.executeUpdate();
 
         //the club id is auto-incremented when a new club is added
         //so reset the id of the clubs when one club is deleted
@@ -112,6 +111,8 @@ public class ClubCRUD {
 
         // Reset the auto-increment value
         stmt.executeUpdate("ALTER TABLE club AUTO_INCREMENT = " + resetId);
+
+        alterStatement.executeUpdate();
 
         try{
             rs.close();

@@ -166,6 +166,17 @@ public class ClubFormController extends Controller implements Initializable {
         }
     }
 
+    boolean validateClubName(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            if((name.charAt(i) >= 'a' && name.charAt(i) <= 'z') || (name.charAt(i) >= 'A' && name.charAt(i) <= 'Z')) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @FXML
     void handleConfirm(ActionEvent event) throws SQLException, IOException {
 
@@ -182,7 +193,11 @@ public class ClubFormController extends Controller implements Initializable {
             //club name is empty
             handleAlert("Club Name cannot be empty", "");
             ClubFormController.confirmFlag = false;
-        } else {
+        } else if(!validateClubName(clubName.getText())){
+            handleAlert("Club Name can contain only alphabet", "");
+            ClubFormController.confirmFlag = false;
+        }
+        else {
             if (!president.getText().isEmpty()) {
                 //id is not a number, so invalid id
                 if (validateNum(president.getText())) {

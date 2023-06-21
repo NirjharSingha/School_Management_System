@@ -83,37 +83,37 @@ CREATE TABLE `SchoolManagementSystem`.`club` (
     PRIMARY KEY (`clubID`),
     FOREIGN KEY (`clubModerator`)
         REFERENCES `SchoolManagementSystem`.`employeeInfo` (`employeeID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`president`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (`vicePresident`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`generalSecretary`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`treasurer`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`assistantGS`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`publicRelations`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`secretary`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`executive_1`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`executive_2`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+        ON DELETE SET NULL ON UPDATE CASCADE,
 	FOREIGN KEY (`executive_3`)
         REFERENCES `SchoolManagementSystem`.`studentInfo` (`studentID`)
-        ON DELETE CASCADE ON UPDATE CASCADE
+        ON DELETE SET NULL ON UPDATE CASCADE
 );
 CREATE TABLE `SchoolManagementSystem`.`clubMembers` (
     `studentID` INT NULL,

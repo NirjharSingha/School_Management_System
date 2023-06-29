@@ -29,7 +29,7 @@ Whereas other users will have access to the data that is related to him/her only
 
 **Local Development:**
 
-To run the app locally, you need to have java(version java-1.19.0-openjdk-amd64) and mysql server installed in your device. If you have these dependencies installed then you can clone the git repository running the following command in terminal or cmd:
+To run the app locally, you need to have java(version java-1.19.0-openjdk-amd64) and mysql server installed in your device. If you have these dependencies installed then you can clone the git repository running the following command in terminal:
 ```bash
 git clone https://github.com/NirjharSingha/School_Management_System.git
 cd School_Management_System
@@ -41,7 +41,7 @@ As MySQL Database is used in the application, you need to build the database loc
 There are two databases used in our project - SchoolManagementSystem and RoutineDatabase.
 In SQL_Scripts folder, there are two sql files which contains the schema of the databases. If you run these scripts in mysql monitor or workbench or similar application, then the two databases will be created with an admin user having id 1111111 and password a . But there will be no other sample users in these databases.
 If you want to create databases with demo users, then you need to run the MySQL Dumped files. For this, in SQL_Dumped_Databases there are two dumped database scripts. Running those scripts, you will have databases with demo users as well.
-To create the databases, run the following commands in terminal or cmd(not in MySQL monitor):
+To create the databases, run the following commands in terminal(not in MySQL monitor):
 ```bash
 cd databases
 cd SQL_Dumped_Databases
@@ -85,7 +85,7 @@ If you have done all this, then your app is ready to launch.
 
 If you still face any problem running the app locally, then you can run the jar file of the app as well.<br>
 For this, at first navigate to the base directory of the project.<br>
-Then run the following commands in the terminal or cmd:
+Then run the following commands in the terminal:
 
 ```bash
 cd dist

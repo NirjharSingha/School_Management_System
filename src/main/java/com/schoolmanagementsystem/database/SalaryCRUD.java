@@ -1,6 +1,6 @@
 package com.schoolmanagementsystem.database;
 
-import com.schoolmanagementsystem.models.Salary;
+import com.schoolmanagementsystem.others.Salary;
 
 import java.sql.*;
 

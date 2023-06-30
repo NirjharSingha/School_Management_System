@@ -1,7 +1,7 @@
 package com.schoolmanagementsystem.database;
 
 import com.schoolmanagementsystem.controllers.NoticeController;
-import com.schoolmanagementsystem.models.Notice;
+import com.schoolmanagementsystem.others.Notice;
 
 import java.io.Reader;
 import java.io.StringReader;

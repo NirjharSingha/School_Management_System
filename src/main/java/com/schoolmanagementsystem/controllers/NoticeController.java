@@ -2,7 +2,7 @@ package com.schoolmanagementsystem.controllers;
 
 import com.schoolmanagementsystem.database.ConnectDatabase;
 import com.schoolmanagementsystem.database.NoticeCRUD;
-import com.schoolmanagementsystem.models.Notice;
+import com.schoolmanagementsystem.others.Notice;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

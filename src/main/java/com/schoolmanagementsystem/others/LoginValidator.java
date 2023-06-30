@@ -1,4 +1,4 @@
-package com.schoolmanagementsystem.models;
+package com.schoolmanagementsystem.others;
 
 import com.schoolmanagementsystem.controllers.loginController;
 import com.schoolmanagementsystem.database.ConnectDatabase;

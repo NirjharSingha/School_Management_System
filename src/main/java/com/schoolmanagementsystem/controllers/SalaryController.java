@@ -2,7 +2,7 @@ package com.schoolmanagementsystem.controllers;
 
 import com.schoolmanagementsystem.database.ConnectDatabase;
 import com.schoolmanagementsystem.database.SalaryCRUD;
-import com.schoolmanagementsystem.models.Salary;
+import com.schoolmanagementsystem.others.Salary;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;

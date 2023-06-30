@@ -11,9 +11,9 @@ module com.schoolmanagementsystem {
     exports com.schoolmanagementsystem.controllers;
     exports com.schoolmanagementsystem.users;
     exports com.schoolmanagementsystem.database;
-    exports com.schoolmanagementsystem.models;
+    exports com.schoolmanagementsystem.others;
 
-    opens com.schoolmanagementsystem.models to javafx.fxml;
+    opens com.schoolmanagementsystem.others to javafx.fxml;
 
     exports com.schoolmanagementsystem.database.routineDB;
     exports com.schoolmanagementsystem.co_curricular;

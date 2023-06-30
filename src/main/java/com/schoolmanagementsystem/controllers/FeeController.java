@@ -2,9 +2,7 @@ package com.schoolmanagementsystem.controllers;
 
 import com.schoolmanagementsystem.database.ConnectDatabase;
 import com.schoolmanagementsystem.database.FeeCRUD;
-import com.schoolmanagementsystem.database.SalaryCRUD;
-import com.schoolmanagementsystem.models.Fee;
-import com.schoolmanagementsystem.models.Salary;
+import com.schoolmanagementsystem.others.Fee;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -13,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class FeeController extends Controller {
 

@@ -1,4 +1,4 @@
-package com.schoolmanagementsystem.models;
+package com.schoolmanagementsystem.others;
 
 import java.time.LocalDate;
 
